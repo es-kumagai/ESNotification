@@ -1,0 +1,16 @@
+PODS:
+  - ESTestKit (0.3.2)
+  - ESThread (0.1.0)
+  - Swim (1.3.14)
+
+DEPENDENCIES:
+  - ESTestKit (~> 0.3.2)
+  - ESThread (~> 0.1.0)
+  - Swim (~> 1.3.14)
+
+SPEC CHECKSUMS:
+  ESTestKit: 162f7c3973be319b6ec3033cc884d0609030d458
+  ESThread: aa7f1d3e412716cef6c62e116a1da761449f5e48
+  Swim: 9b5184815b6c50971ef0378156225c90fc8e50b5
+
+COCOAPODS: 0.38.2
