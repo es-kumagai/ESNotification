@@ -1,4 +1,10 @@
-# Ocean.Notification
+# ESNotification
+
+A type-safe notification management system for iOS/OSX written in Swift 2.
+
+It is a swift module that powerfully notification management system using type-safe notification types. Notifications using this system are compatible with NSNotificationCenter.
+
+This module written in Swift 2.0. Supports Objective-C.
 
 ## How to use
 
@@ -15,17 +21,16 @@ final class MyNativeNotification : Notification {
 
 ### Observe
 
-You can observe a Notification using `observe:owner:notification:handler:` function.
+You can observe a Notification using `observeBy:notification:handler:` method privided by a type conforms to `Notification` protocol.
 
 ```swift
-observe(self, MyNativeNotification.self) {
+notification:MyNativeNotification.observeBy(self) { (owner:SelfClass, notification:MyNativeNotification) -> Void in
 
-	let owner = $0
-	let notification = $1
-	
 	...
 }
 ```
+
+To specifiy the `handler` closure type, you can omit specify a notification type for observing by argument. 
 
 Usually, you set the first parameter `owner` to `self`. The `owner` is references by weak, and passed to `handler` closure.
 
@@ -37,19 +42,6 @@ At this time, the first parameter is reference of owner object and the second pa
 
 > If owner released, the observing handler is released too.
 > When you want to release implicitly, save `HandlerID` returns by `observe` function, and call `releaseHandler` function with the Handler ID.
-
----
-
-There is also another way of writing of `observe` function.
-
-```swift
-notification:MyNativeNotification.observeBy(self) { (owner:SelfClass, notification:MyNativeNotification) -> Void in
-
-	...
-}
-```
-
-To specifiy the `handler` closure type, you can omit specify a notification type for observing by argument. 
 
 ### Post
 
@@ -77,7 +69,7 @@ If you want to post a Native Notification in Objective-C, You must implement a m
 @objc final class MyNativeNotification : Notification {
 	static func post() {
 	
-		Ocean.post(MyNativeNotification())
+		MyNativeNotification().post()
 	}
 }
 ```
