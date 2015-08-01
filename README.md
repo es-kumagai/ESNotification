@@ -66,7 +66,7 @@ Then you observe Notifications that have the Notification name by NSNotification
 If you want to post a Native Notification in Objective-C, You must implement a method for post in Swift.
 
 ```swift
-@objc final class MyNativeNotification : Notification {
+@objc final class MyNativeNotification : NSObject, Notification {
 	static func post() {
 	
 		MyNativeNotification().post()
