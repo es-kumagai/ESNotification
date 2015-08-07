@@ -1,4 +1,5 @@
+*.xcuserdatad
+*.xcscmblueprint
 /Pods
-xcuserdata
-xcshareddata
+.DS_Store
 
