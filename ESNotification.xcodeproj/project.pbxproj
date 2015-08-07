@@ -77,6 +77,8 @@
 		B17475F41B6CE0EB00A86785 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B17475F51B6CE11200A86785 /* NotificationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		B17475F81B6CE16100A86785 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		B1E89A791B745F310062E12E /* ESNotification.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ESNotification.podspec; sourceTree = "<group>"; };
+		B1E89A7A1B745F5F0062E12E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BD38000B9128AF3843B606EA /* Pods_ESNotification_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ESNotification_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C90ECBF946957FD1DEBF1072 /* Pods_ESNotification_OSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ESNotification_OSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3F5EEE9FEE59F10E3873CAC /* Pods-ESNotification_OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ESNotification_OSX.release.xcconfig"; path = "Pods/Target Support Files/Pods-ESNotification_OSX/Pods-ESNotification_OSX.release.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				B17475F81B6CE16100A86785 /* Podfile */,
+				B1E89A791B745F310062E12E /* ESNotification.podspec */,
+				B1E89A7A1B745F5F0062E12E /* LICENSE */,
 				B17475F41B6CE0EB00A86785 /* README.md */,
 				B17475671B6CD4A500A86785 /* ESNotification */,
 				B17475731B6CD4A500A86785 /* ESNotificationTests */,
