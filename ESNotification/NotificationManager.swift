@@ -175,7 +175,7 @@ extension NotificationManager {
 
 			self._removeUnownedNotificationHandlers()
 			
-			foreach (self._notificationHandlers) {
+			self._notificationHandlers.forEach {
 				
 				$0.invoke(notification)
 			}

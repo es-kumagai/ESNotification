@@ -5,7 +5,7 @@ use_frameworks!
 
 def pods
 	
-	pod 'Swim', '~> 1.3.14'
+	pod 'Swim', :git => 'https://github.com/EZ-NET/ESSwim', :branch => 'beta'
 	pod 'ESThread', '~> 0.1.0'
 	
 end

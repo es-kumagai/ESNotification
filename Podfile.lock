@@ -1,16 +1,26 @@
 PODS:
-  - ESTestKit (0.3.2)
+  - ESTestKit (0.3.3)
   - ESThread (0.1.0)
-  - Swim (1.3.14)
+  - Swim (1.3.16-beta)
 
 DEPENDENCIES:
   - ESTestKit (~> 0.3.2)
   - ESThread (~> 0.1.0)
-  - Swim (~> 1.3.14)
+  - Swim (from `https://github.com/EZ-NET/ESSwim`, branch `beta`)
+
+EXTERNAL SOURCES:
+  Swim:
+    :branch: beta
+    :git: https://github.com/EZ-NET/ESSwim
+
+CHECKOUT OPTIONS:
+  Swim:
+    :commit: 667f83b61da57023ac7548330080ca5563932278
+    :git: https://github.com/EZ-NET/ESSwim
 
 SPEC CHECKSUMS:
-  ESTestKit: 162f7c3973be319b6ec3033cc884d0609030d458
+  ESTestKit: 4e613c869c0bcd8012282b03805f072a932ccf3b
   ESThread: aa7f1d3e412716cef6c62e116a1da761449f5e48
-  Swim: 9b5184815b6c50971ef0378156225c90fc8e50b5
+  Swim: 99963f44a655da68bbae3a556783be3b1dc4612a
 
 COCOAPODS: 0.38.2
