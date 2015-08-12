@@ -20,6 +20,8 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/EZ-NET/ESNotification.git" }
   s.source_files  = "ESNotification/**/*.swift"
+  s.ios.source_files  = "ESNotification_iOS/**/*.swift"
+  s.osx.source_files  = "ESNotification_OSX/**/*.swift"
 
   s.dependency	'Swim', '~> 1.3.14'
   s.dependency	'ESThread', '~> 0.1.0'
