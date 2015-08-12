@@ -11,7 +11,7 @@ import Foundation
 /// This Notification represent almost the same thing as NSNotification.
 @objc public class NamedNotification : NSObject, Notification, RawNotificationConvertible, RawNotificationType {
 	
-	public typealias UserInfo = [NSObject:AnyObject]
+	public typealias UserInfo = [NSObject : AnyObject]
 	
 	public private(set) var name:String
 	public private(set) var object:AnyObject?
@@ -36,10 +36,35 @@ import Foundation
 		super.init()
 	}
 	
+//	public func copyWithZone(zone: NSZone) -> AnyObject {
+//		
+//		let result = NamedNotification(self.name.copy() as! String)
+//		
+//		if let object = self.object where object.respondsToSelector("copyWithZone:") {
+//			
+//			result.object = object.copy()
+//		}
+//		else {
+//
+//			result.object = self.object
+//		}
+//		
+//		if let userInfo = self.userInfo {
+//			
+//			result.userInfo = (userInfo as NSDictionary).copy() as? UserInfo
+//		}
+//		else {
+//			
+//			result.userInfo = self.userInfo
+//		}
+//		
+//		return result
+//	}
+	
 	/// Initialize with a Raw Notification.
 	public required convenience init(rawNotification:NSNotification) {
 		
-		self.init(rawNotification.name, object:rawNotification.object, userInfo:rawNotification.userInfo)
+		self.init(rawNotification.name, object:rawNotification.object as? NSObject, userInfo:rawNotification.userInfo)
 	}
 	
 	/// Get a Raw Notification.
