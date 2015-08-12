@@ -86,13 +86,13 @@ private let _processingQueueLabel = "jp.ez-style.thread.ocean.notification"
 private let _processingQueue = dispatch_queue_create(_processingQueueLabel, nil)
 
 /// Invoke `predicate` asynchronously on the thread for Notification processing.
-public let invokeOnProcessingQueue:(predicate:()->Void) -> Void = {
+public func invokeOnProcessingQueue(predicate:()->Void) -> Void {
 	
-	invokeAsync(_processingQueue, predicate: $0)
+	invokeAsync(_processingQueue, predicate: predicate)
 }
 
 /// Invoke `predicate` synchronously on the thread for Notification processing.
-func invokeOnProcessingQueueSynchronously<R>(predicate:()->R) -> R {
+public func invokeOnProcessingQueueSynchronously<R>(predicate:()->R) -> R {
 	
 	return invoke(_processingQueue, predicate: predicate)
 }

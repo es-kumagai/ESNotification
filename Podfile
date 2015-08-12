@@ -31,6 +31,13 @@ target :ESNotification_iOS do
 
 end
 
+target :RunModalTestApp do
+	
+	platform :osx, '10.10'
+	pods
+	
+end
+
 target :ESNotification_OSXTests do
 	
 	platform :osx, '10.10'

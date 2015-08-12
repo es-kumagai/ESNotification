@@ -171,7 +171,7 @@ extension NotificationManager {
 	/// The method is called when the observer received an notification.
 	func received(notification:Notification) {
 
-		invokeOnProcessingQueue {
+		invokeOnProcessingQueueSyncIfNeeded {
 
 			self._removeUnownedNotificationHandlers()
 			
@@ -284,7 +284,7 @@ class _NotificationObserver : NSObject {
 			self._manager.received(notification)
 		}
 		else {
-			
+
 			self._manager.received(NamedNotification(rawNotification: rawNotification))
 		}
 	}
