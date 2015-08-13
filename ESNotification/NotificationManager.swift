@@ -40,8 +40,13 @@ public class NotificationManager {
 		
 		didSet {
 			
-			if !self.dammingNotifications {
+			if self.dammingNotifications {
 				
+				NSLog("Damming notification.")
+			}
+			else {
+
+				NSLog("Release notification dam.")
 				self.invokeDammedNotifications()
 			}
 		}
