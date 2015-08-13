@@ -131,6 +131,16 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2e-k8-5Td">
+                                <rect key="frame" x="168" y="189" width="99" height="32"/>
+                                <buttonCell key="cell" type="push" title="Dumming" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FA8-L1-jUR">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="dummingToggle:" target="XfG-lQ-9wD" id="dL1-sz-Kjn"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                 </viewController>

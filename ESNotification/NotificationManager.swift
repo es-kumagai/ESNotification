@@ -23,6 +23,32 @@ public func == (lhs:NotificationManager.HandlerID, rhs:NotificationManager.Handl
 /// Manage native notifications.
 public class NotificationManager {
 	
+	public static var dammingNotifications:Bool {
+
+		get {
+			
+			return _notificationManager.dammingNotifications
+		}
+
+		set {
+
+			_notificationManager.dammingNotifications = newValue
+		}
+	}
+	
+	public var dammingNotifications:Bool = false {
+		
+		didSet {
+			
+			if !self.dammingNotifications {
+				
+				self.invokeDammedNotifications()
+			}
+		}
+	}
+	
+	private var notificationDam = [Notification]()
+	
 	public struct HandlerID : Equatable {
 		
 		public var value:UInt16
@@ -171,14 +197,47 @@ extension NotificationManager {
 	/// The method is called when the observer received an notification.
 	func received(notification:Notification) {
 
+		guard !NotificationManager.dammingNotifications else {
+			
+			self.dummNotification(notification)
+			return
+		}
+		
 		invokeOnProcessingQueueSyncIfNeeded {
 
-			self._removeUnownedNotificationHandlers()
+			self._received(notification)
+		}
+	}
+
+	private func _received(notification:Notification) {
+		
+		self._removeUnownedNotificationHandlers()
+		
+		self._notificationHandlers.forEach {
 			
-			self._notificationHandlers.forEach {
-				
-				$0.invoke(notification)
-			}
+			$0.invoke(notification)
+		}
+	}
+
+	func dummNotification(notification:Notification) {
+		
+		invokeOnProcessingQueue {
+			
+			self._dummNotification(notification)
+		}
+	}
+	
+	func _dummNotification(notification:Notification) {
+	
+		self.notificationDam.append(notification)
+	}
+	
+	func invokeDammedNotifications() {
+		
+		invokeOnProcessingQueue {
+			
+			self.notificationDam.forEach(self._received)
+			self.notificationDam.removeAll()
 		}
 	}
 

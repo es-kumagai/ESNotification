@@ -35,5 +35,12 @@ class ViewController: NSViewController {
 		
 		SampleNotification().post()
 	}
+	
+	@IBAction func dummingToggle(sender:AnyObject?) {
+		
+		NotificationManager.dammingNotifications = !NotificationManager.dammingNotifications
+		
+		NSLog("Dumming = \(NotificationManager.dammingNotifications)")
+	}
 }
 
