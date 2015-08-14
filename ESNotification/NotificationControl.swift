@@ -79,6 +79,21 @@ extension NSNotification {
 	}
 }
 
+extension NamedNotification {
+	
+	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
+	public static func observe<OWNER:AnyObject>(name:String, by owner:OWNER, handler:(OWNER,NamedNotification)->Void) -> NotificationManager.HandlerID {
+		
+		return _notificationManager.observe(owner) { (owner:OWNER, notification:NamedNotification) -> Void in
+			
+			if notification.name == name {
+
+				handler(owner, notification)
+			}
+		}
+	}
+}
+
 // MARK: - Thread
 
 private let _processingQueueLabel = "jp.ez-style.thread.ocean.notification"

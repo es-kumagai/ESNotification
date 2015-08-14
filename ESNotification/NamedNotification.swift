@@ -48,3 +48,11 @@ import Foundation
 		return NSNotification(name: self.name, object: self.object, userInfo: self.userInfo)
 	}
 }
+
+extension NamedNotification {
+	
+	public override var description:String {
+		
+		return "\(NamedNotification.self)(\(self.name))"
+	}
+}

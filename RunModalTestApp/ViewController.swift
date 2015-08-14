@@ -11,6 +11,9 @@ import ESNotification
 
 class ViewController: NSViewController {
 
+	static let NamedTestANotification = "ESNotification.NamedNotificationForTestA"
+	static let NamedTestBNotification = "ESNotification.NamedNotificationForTestB"
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -29,11 +32,35 @@ class ViewController: NSViewController {
 			
 			print("\(notification) received.")
 		}
+		
+		NamedNotification.observe(ViewController.NamedTestANotification, by: self) { owner, notification in
+			
+			print("\(notification) received by handler for Test A.")
+		}
+		
+		NamedNotification.observe(ViewController.NamedTestBNotification, by: self) { owner, notification in
+			
+			print("\(notification) received by handler for Test B.")
+		}
 	}
 	
 	@IBAction func sendNotification(sender:AnyObject?) {
 		
 		SampleNotification().post()
+	}
+	
+	@IBAction func sendNamedNotificationA(sender:AnyObject?) {
+		
+		let center = NSNotificationCenter.defaultCenter()
+		
+		center.postNotification(NSNotification(name: ViewController.NamedTestANotification, object: nil))
+	}
+	
+	@IBAction func sendNamedNotificationB(sender:AnyObject?) {
+		
+		let center = NSNotificationCenter.defaultCenter()
+		
+		center.postNotification(NSNotification(name: ViewController.NamedTestBNotification, object: nil))
 	}
 	
 	@IBAction func dummingToggle(sender:AnyObject?) {

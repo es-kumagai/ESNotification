@@ -104,7 +104,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tGd-Pe-B6x">
-                                <rect key="frame" x="14" y="222" width="107" height="32"/>
+                                <rect key="frame" x="359" y="222" width="107" height="32"/>
                                 <buttonCell key="cell" type="push" title="Run Modal" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6jj-YL-bJW">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -114,8 +114,8 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="okn-e0-Lwp">
-                                <rect key="frame" x="14" y="189" width="154" height="32"/>
-                                <buttonCell key="cell" type="push" title="Post a Notification" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="krr-rU-XpN">
+                                <rect key="frame" x="14" y="222" width="197" height="32"/>
+                                <buttonCell key="cell" type="push" title="Post a Native Notification" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="krr-rU-XpN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -123,16 +123,28 @@
                                     <action selector="sendNotification:" target="XfG-lQ-9wD" id="Arw-fg-oNl"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PzC-uR-GTC">
-                                <rect key="frame" x="20" y="133" width="442" height="42"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Try checking whether the app hangup when open modal window from Menu (⌘N) and close it." id="LWo-Va-lLg">
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="roC-mB-mEm">
+                                <rect key="frame" x="14" y="189" width="215" height="32"/>
+                                <buttonCell key="cell" type="push" title="Post a Named Notification A" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="V5K-EH-qHg">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sendNamedNotificationA:" target="XfG-lQ-9wD" id="78z-h9-cIn"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zUP-HF-rUW">
+                                <rect key="frame" x="16" y="156" width="215" height="32"/>
+                                <buttonCell key="cell" type="push" title="Post a Named Notification B" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GWS-pv-Yd1">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sendNamedNotificationB:" target="XfG-lQ-9wD" id="ChX-aj-urm"/>
+                                </connections>
+                            </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2e-k8-5Td">
-                                <rect key="frame" x="168" y="189" width="99" height="32"/>
+                                <rect key="frame" x="367" y="189" width="99" height="32"/>
                                 <buttonCell key="cell" type="push" title="Dumming" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FA8-L1-jUR">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -141,6 +153,14 @@
                                     <action selector="dummingToggle:" target="XfG-lQ-9wD" id="dL1-sz-Kjn"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PzC-uR-GTC">
+                                <rect key="frame" x="20" y="95" width="442" height="42"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Try checking whether the app hangup when open modal window from Menu (⌘N) and close it." id="LWo-Va-lLg">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                 </viewController>
