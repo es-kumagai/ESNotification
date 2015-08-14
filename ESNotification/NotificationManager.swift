@@ -42,7 +42,7 @@ public class NotificationManager {
 			
 			if self.dammingNotifications {
 				
-				NSLog("Damming notification.")
+				NSLog("Damming notifications.")
 			}
 			else {
 

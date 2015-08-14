@@ -53,7 +53,6 @@ extension Notification {
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	public static func observeBy<OWNER:AnyObject>(owner:OWNER, handler:(OWNER,Self)->Void) -> NotificationManager.HandlerID {
 		
-		NSLog("Notification '\(Self.self) start observing by owner: \(owner)")
 		return _notificationManager.observe(owner, handler: handler)
 	}
 }
