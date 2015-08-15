@@ -17,7 +17,15 @@ final class MyNativeNotification : Notification {
 }
 ```
 
-> You can also implement properties and methods in the object.
+You can also implement properties and methods in the object. It work user information of the notification. It can be accessed type-safely.
+
+```swift
+final class MyNativeNotification : Notification {
+
+	var serial:Int
+	var validation:Bool
+}
+```
 
 ### Observe
 
@@ -26,7 +34,7 @@ final class MyNativeNotification : Notification {
 You can observe a Notification using `observeBy:handler:` method privided by a type conforms to `Notification` protocol.
 
 ```swift
-notification:MyNativeNotification.observeBy(self) { (owner:SelfClass, notification:MyNativeNotification) -> Void in
+MyNativeNotification.observeBy(self) { (owner, notification) -> Void in
 
 	...
 }
