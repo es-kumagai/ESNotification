@@ -34,7 +34,7 @@ final class MyNativeNotification : Notification {
 You can observe a Notification using `observeBy:handler:` method privided by a type conforms to `Notification` protocol.
 
 ```swift
-MyNativeNotification.observeBy(self) { (owner, notification) -> Void in
+MyNativeNotification.observeBy(self) { owner, notification -> Void in
 
 	...
 }
@@ -82,7 +82,30 @@ You can observe `Native Notification` in Objective-C.
 
 If you want to observe Native Notifications, previously you must get the Notification name to use  `identifierOf(AnyNativeNotification.self)` in Swift.
 
+```swift
+final class MyNativeNotification : NSObject, Notification {
+
+	static let name = MyNativeNotification.notificationIdentifier
+}
+```
+
 Then you observe Notifications that have the Notification name by NSNotificationCenter, you can handle the notification.
+
+```objc
+	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+
+	[nc addObserver:self selector:@selector(myNativeNotificationReceived:) name:MyNativeNotification.name object:nil];
+```
+
+When a Native notification received by NSNotificationCenter, the Native Notification instance set to `object` property of NSNotification passed by parameter.
+
+```objc
+- (void)myNativeNotificationReceived:(NSNotification*)note
+{
+	MyNativeNotification* nativeNotification = note.object;
+	
+}
+```
 
 ### Post a Native Notification
 
@@ -90,9 +113,10 @@ If you want to post a Native Notification in Objective-C, You must implement a m
 
 ```swift
 @objc final class MyNativeNotification : NSObject, Notification {
-	static func post() {
 	
-		MyNativeNotification().post()
+	func postNotification() {
+	
+		self.post()
 	}
 }
 ```
@@ -100,5 +124,5 @@ If you want to post a Native Notification in Objective-C, You must implement a m
 Then, you call the method when you want to post the Native Notification.
 
 ```Objective-C
-[MyNativeNotification post];
+[[[MyNativeNotification alloc] init] postNotification];
 ```
