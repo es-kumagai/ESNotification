@@ -193,7 +193,10 @@ public class NotificationManager {
 			$0.handlerID == handlerID
 		}
 		
-		index.map { self._notificationHandlers.removeAtIndex($0) }
+        if let index = index {
+
+            self._notificationHandlers.removeAtIndex(index)
+        }
 	}
 }
 
