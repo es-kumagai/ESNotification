@@ -323,6 +323,7 @@
 				231D6053F4AABA988815BC2A /* Frameworks */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		B17475661B6CD4A500A86785 /* Products */ = {
 			isa = PBXGroup;
