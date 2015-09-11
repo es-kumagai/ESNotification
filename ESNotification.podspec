@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ESNotification"
-  s.version      = "0.1.5-beta"
+  s.version      = "0.2.0"
   s.summary      = "A type-safe notification management system for iOS/OSX written in Swift 2."
 
   s.description  = <<-DESC
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.ios.source_files  = "ESNotification_iOS/**/*.swift"
   s.osx.source_files  = "ESNotification_OSX/**/*.swift"
 
-  s.dependency	'Swim', '~> 1.3.14'
+  s.dependency	'Swim', '~> 1.4.0'
   s.dependency	'ESThread', '~> 0.1.0'
 
 end
