@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		178BAE6E316CAD1990E70CF2 /* Pods_ObjCTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85FA15D8D814FDF6075B5DB /* Pods_ObjCTestApp.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		343A9A080F9C7329E71BCB52 /* Pods_ESNotification_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CC4F394FDA4C6F982B9551 /* Pods_ESNotification_iOSTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		AB3373D115BB629CB46125EE /* Pods_ESNotification_OSXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905E50B34A8714B9C3580F67 /* Pods_ESNotification_OSXTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		178BAE6E316CAD1990E70CF2 /* Pods_ObjCTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85FA15D8D814FDF6075B5DB /* Pods_ObjCTestApp.framework */; };
+		343A9A080F9C7329E71BCB52 /* Pods_ESNotification_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CC4F394FDA4C6F982B9551 /* Pods_ESNotification_iOSTests.framework */; };
+		AB3373D115BB629CB46125EE /* Pods_ESNotification_OSXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 905E50B34A8714B9C3580F67 /* Pods_ESNotification_OSXTests.framework */; };
 		B125EA671B81E61D00714AF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B125EA661B81E61D00714AF9 /* AppDelegate.m */; };
 		B125EA6A1B81E61D00714AF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B125EA691B81E61D00714AF9 /* main.m */; };
 		B125EA6D1B81E61D00714AF9 /* ESViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B125EA6C1B81E61D00714AF9 /* ESViewController.m */; };
@@ -30,6 +30,8 @@
 		B12BA0841B7BEB2F001F8080 /* ModalWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BA0831B7BEB2F001F8080 /* ModalWindow.swift */; };
 		B12BA0861B7C0723001F8080 /* NotificationControl_OSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BA0851B7C0723001F8080 /* NotificationControl_OSX.swift */; };
 		B12BA0881B7C072E001F8080 /* NotificationControl_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BA0871B7C072E001F8080 /* NotificationControl_iOS.swift */; };
+		B142EB461BC80F9800EF9A98 /* NotificationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B142EB451BC80F9800EF9A98 /* NotificationBox.swift */; settings = {ASSET_TAGS = (); }; };
+		B142EB471BC80F9800EF9A98 /* NotificationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B142EB451BC80F9800EF9A98 /* NotificationBox.swift */; settings = {ASSET_TAGS = (); }; };
 		B17475A31B6CD4DE00A86785 /* ESNotification_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B17475A21B6CD4DE00A86785 /* ESNotification_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B17475AA1B6CD4DE00A86785 /* ESNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B17475A01B6CD4DE00A86785 /* ESNotification.framework */; };
 		B17475BF1B6CD4EB00A86785 /* ESNotification_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = B17475BE1B6CD4EB00A86785 /* ESNotification_OSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -48,9 +50,9 @@
 		B17475F31B6CE0D500A86785 /* RawNotificationConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17475E51B6CE0D500A86785 /* RawNotificationConvertible.swift */; };
 		B17475F61B6CE11200A86785 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17475F51B6CE11200A86785 /* NotificationTests.swift */; };
 		B17475F71B6CE11200A86785 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17475F51B6CE11200A86785 /* NotificationTests.swift */; };
-		C8F822083B65523B72E837B0 /* Pods_RunModalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE62C38B0D23D1E3CFE0B2F2 /* Pods_RunModalTestApp.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		DA4177733F8741AACC0E09FD /* Pods_ESNotification_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD38000B9128AF3843B606EA /* Pods_ESNotification_iOS.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		E6CD40E556A62094744B1512 /* Pods_ESNotification_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90ECBF946957FD1DEBF1072 /* Pods_ESNotification_OSX.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C8F822083B65523B72E837B0 /* Pods_RunModalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE62C38B0D23D1E3CFE0B2F2 /* Pods_RunModalTestApp.framework */; };
+		DA4177733F8741AACC0E09FD /* Pods_ESNotification_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD38000B9128AF3843B606EA /* Pods_ESNotification_iOS.framework */; };
+		E6CD40E556A62094744B1512 /* Pods_ESNotification_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90ECBF946957FD1DEBF1072 /* Pods_ESNotification_OSX.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +148,7 @@
 		B12BA0831B7BEB2F001F8080 /* ModalWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalWindow.swift; sourceTree = "<group>"; };
 		B12BA0851B7C0723001F8080 /* NotificationControl_OSX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationControl_OSX.swift; sourceTree = "<group>"; };
 		B12BA0871B7C072E001F8080 /* NotificationControl_iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationControl_iOS.swift; sourceTree = "<group>"; };
+		B142EB451BC80F9800EF9A98 /* NotificationBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationBox.swift; sourceTree = "<group>"; };
 		B17475A01B6CD4DE00A86785 /* ESNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ESNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B17475A21B6CD4DE00A86785 /* ESNotification_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESNotification_iOS.h; sourceTree = "<group>"; };
 		B17475A41B6CD4DE00A86785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -323,6 +326,7 @@
 				231D6053F4AABA988815BC2A /* Frameworks */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		B17475661B6CD4A500A86785 /* Products */ = {
 			isa = PBXGroup;
@@ -341,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				B17475E01B6CE0D500A86785 /* Notification.swift */,
+				B142EB451BC80F9800EF9A98 /* NotificationBox.swift */,
 				B17475E11B6CE0D500A86785 /* NotificationControl.swift */,
 				B17475E21B6CE0D500A86785 /* NotificationManager.swift */,
 				B17475E31B6CE0D500A86785 /* NamedNotification.swift */,
@@ -916,6 +921,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B142EB461BC80F9800EF9A98 /* NotificationBox.swift in Sources */,
 				B17475E81B6CE0D500A86785 /* Notification.swift in Sources */,
 				B17475EE1B6CE0D500A86785 /* NamedNotification.swift in Sources */,
 				B17475F21B6CE0D500A86785 /* RawNotificationConvertible.swift in Sources */,
@@ -938,6 +944,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B142EB471BC80F9800EF9A98 /* NotificationBox.swift in Sources */,
 				B17475E91B6CE0D500A86785 /* Notification.swift in Sources */,
 				B17475EF1B6CE0D500A86785 /* NamedNotification.swift in Sources */,
 				B17475F31B6CE0D500A86785 /* RawNotificationConvertible.swift in Sources */,
@@ -1009,7 +1016,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = ObjCTestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1028,7 +1034,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = ObjCTestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1045,7 +1050,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = RunModalTestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1061,7 +1065,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = RunModalTestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1247,7 +1250,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.ez-style.appid.ESNotification-OSX";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.ez-style.appid.ESNotification_OSX";
 				PRODUCT_NAME = ESNotification;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1270,7 +1273,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.ez-style.appid.ESNotification-OSX";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.ez-style.appid.ESNotification_OSX";
 				PRODUCT_NAME = ESNotification;
 				SKIP_INSTALL = YES;
 			};

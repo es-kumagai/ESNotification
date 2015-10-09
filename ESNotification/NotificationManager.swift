@@ -52,7 +52,7 @@ public class NotificationManager {
 		}
 	}
 	
-	private var notificationDam = [Notification]()
+	private var notificationDam = [NotificationBox]()
 	
 	public struct HandlerID : Equatable {
 		
@@ -99,16 +99,40 @@ public class NotificationManager {
 	}
 
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	public func observe<OWNER:AnyObject, T:Notification>(owner:OWNER, notification:T.Type, handler:(OWNER,T)->Void) -> HandlerID {
-
-		return self.observe(owner, handler: handler)
+	/// The argument `notification` is used to help type inference.
+	public func observe<OWNER:AnyObject>(owner:OWNER, notificationName:String, handler:(OWNER,NamedNotification)->Void) -> HandlerID {
+		
+		let _handler = { (owner:AnyObject, notification: _Notification) -> Void in
+			
+			let notification = notification as! NamedNotification
+			
+			if notification.name == notificationName {
+				
+				handler(owner as! OWNER, notification)
+			}
+		}
+		
+		return invokeOnProcessingQueueSynchronously {
+			
+			let handler = _NotificationHandler(owner, target:NamedNotification.self, targetName: notificationName, handler: _handler)
+			
+			self._notificationHandlers.append(handler)
+			
+			return handler.handlerID
+		}
 	}
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
+	public func observe<OWNER:AnyObject, T:Notification>(owner:OWNER, notification:T.Type, handler:(OWNER,T)->Void) -> HandlerID {
+		
+		return self.observe(owner, handler: handler)
+	}
+	
+	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	public func observe<OWNER:AnyObject, T:Notification>(owner:OWNER, handler:(OWNER,T)->Void) -> HandlerID {
 
-		let _getNotification:(Notification)->T = {
+		let _getNotification:(_Notification)->T = {
 			
 			if T.self is AnyNotification.Type {
 				
@@ -120,14 +144,14 @@ public class NotificationManager {
 			}
 		}
 		
-		let _handler:(AnyObject, Notification) -> Void = {
+		let _handler:(AnyObject, _Notification) -> Void = {
 			
 			handler($0 as! OWNER, _getNotification($1))
 		}
 		
 		return invokeOnProcessingQueueSynchronously {
 
-			let handler = _NotificationHandler(owner, target:T.self, handler: _handler)
+			let handler = _NotificationHandler(owner, target:T.self, targetName: nil, handler: _handler)
 			
 			self._notificationHandlers.append(handler)
 			
@@ -203,7 +227,7 @@ public class NotificationManager {
 extension NotificationManager {
 
 	/// The method is called when the observer received an notification.
-	func received(notification:Notification) {
+	func received(notification:_Notification) {
 
 		guard !NotificationManager.dammingNotifications else {
 			
@@ -217,7 +241,22 @@ extension NotificationManager {
 		}
 	}
 
-	private func _received(notification:Notification) {
+	/// The method is called when the observer received an notification.
+	func received(rawNotification:NSNotification) {
+		
+		guard !NotificationManager.dammingNotifications else {
+			
+			self.dummNotification(rawNotification)
+			return
+		}
+		
+		invokeOnProcessingQueueSyncIfNeeded {
+			
+			self._received(rawNotification)
+		}
+	}
+	
+	private func _received(notification:_Notification) {
 		
 		self._removeUnownedNotificationHandlers()
 		
@@ -227,7 +266,32 @@ extension NotificationManager {
 		}
 	}
 
-	func dummNotification(notification:Notification) {
+	private func _received(rawNotification:NSNotification) {
+		
+		let targetNotificationNames = self._notificationHandlers.flatMap { $0.targetName }
+		
+		guard targetNotificationNames.contains(rawNotification.name) else {
+		
+			// drop the notification which will not be handled.
+			return
+		}
+		
+		self._received(NamedNotification(rawNotification: rawNotification))
+	}
+
+	private func _received(dummedNotification:NotificationBox) {
+		
+		switch dummedNotification {
+			
+		case .NativeNotification(let notification):
+			self._received(notification)
+			
+		case .RawNotification(let notification):
+			self._received(notification)
+		}
+	}
+	
+	func dummNotification(notification:_Notification) {
 		
 		invokeOnProcessingQueue {
 			
@@ -235,9 +299,22 @@ extension NotificationManager {
 		}
 	}
 	
-	func _dummNotification(notification:Notification) {
+	func dummNotification(rawNotification:NSNotification) {
+		
+		invokeOnProcessingQueue {
+			
+			self._dummNotification(rawNotification)
+		}
+	}
+	
+	func _dummNotification(notification:_Notification) {
 	
 		self.notificationDam.append(notification)
+	}
+	
+	func _dummNotification(rawNotification:NSNotification) {
+		
+		self.notificationDam.append(rawNotification)
 	}
 	
 	func invokeDammedNotifications() {
@@ -264,7 +341,7 @@ extension NotificationManager {
 // MARK: - Internal Container
 
 /// Check if the `value` Type means same notification as `patternType`.
-func ~= (pattern:Notification.Type, value:Notification.Type) -> Bool {
+func ~= (pattern:_Notification.Type, value:_Notification.Type) -> Bool {
 	
 	let id1 = ObjectIdentifier(pattern)
 	let id2 = ObjectIdentifier(value)
@@ -278,15 +355,17 @@ class _NotificationHandler {
 	private static var _lastHandlerID = NotificationManager.HandlerID(0)
 	
 	private(set) var handlerID:NotificationManager.HandlerID
-	private(set) var target:Notification.Type
-	private(set) var handler:(AnyObject,Notification)->Void
+	private(set) var target:_Notification.Type
+	private(set) var targetName:String?
+	private(set) var handler:(AnyObject,_Notification)->Void
 	private(set) weak var owner:AnyObject?
 	
-	init(_ owner:AnyObject, target:Notification.Type, handler:(AnyObject,Notification)->Void) {
+	init(_ owner:AnyObject, target:_Notification.Type, targetName:String?, handler:(AnyObject,_Notification)->Void) {
 		
 		self.handlerID = _NotificationHandler._getNextHandlerID()
 		self.owner = owner
 		self.target = target
+		self.targetName = targetName
 		self.handler = handler
 	}
 	
@@ -304,7 +383,7 @@ class _NotificationHandler {
 	}
 	
 	/// Invoke notification handler. If the `notification` type is not same type as self.target, do nothing.
-	func invoke(notification:Notification) {
+	func invoke(notification:_Notification) {
 		
 		if let owner:AnyObject = self.owner {
 			
@@ -320,7 +399,7 @@ class _NotificationHandler {
 	}
 	
 	/// Invoke notification handler on main thread asynchronously.
-	func _invokeHandlerOnMainThread(owner:AnyObject, _ notification:Notification) {
+	func _invokeHandlerOnMainThread(owner:AnyObject, _ notification:_Notification) {
 		
 		invokeAsyncOnMainQueue {
 			
@@ -352,7 +431,7 @@ class _NotificationObserver : NSObject {
 		}
 		else {
 
-			self._manager.received(NamedNotification(rawNotification: rawNotification))
+			self._manager.received(rawNotification)
 		}
 	}
 }

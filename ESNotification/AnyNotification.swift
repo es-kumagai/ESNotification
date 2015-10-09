@@ -9,11 +9,11 @@
 import Foundation
 
 /// This notification type is used to handle any of notifications.
-@objc public class AnyNotification : NSObject, Notification {
+public final class AnyNotification : NSObject, Notification {
 
-	public private(set) var notification:Notification
+	public private(set) var notification:_Notification
 	
-	init(_ notification:Notification) {
+	init(_ notification:_Notification) {
 		
 		self.notification = notification
 		

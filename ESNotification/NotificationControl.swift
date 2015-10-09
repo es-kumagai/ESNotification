@@ -11,7 +11,7 @@ import ESThread
 
 private let NotificationRawNamePrefix = "jp.ez-style.Notification."
 
-extension Notification {
+extension _Notification {
 	
 	/// Post the `notification`.
 	public func post() {
@@ -49,7 +49,10 @@ extension Notification {
 			return NSNotification(name: name, object: object, userInfo:nil)
 		}
 	}
-	
+}
+
+extension Notification {
+
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	public static func observeBy<OWNER:AnyObject>(owner:OWNER, handler:(OWNER,Self)->Void) -> NotificationManager.HandlerID {
 		
@@ -66,11 +69,11 @@ extension NSNotification {
 	}
 	
 	/// Get the native notification from the `rawNotification`. Returns nil if `rawNotification` is not an Native notification.
-	func toOceanNativeNotification() -> Notification? {
+	func toOceanNativeNotification() -> _Notification? {
 		
 		if self.isOceanNativeNotification {
 			
-			return self.object as? Notification
+			return self.object as? _Notification
 		}
 		else {
 			
@@ -84,13 +87,7 @@ extension NamedNotification {
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	public static func observe<OWNER:AnyObject>(name:String, by owner:OWNER, handler:(OWNER,NamedNotification)->Void) -> NotificationManager.HandlerID {
 		
-		return _notificationManager.observe(owner) { (owner:OWNER, notification:NamedNotification) -> Void in
-			
-			if notification.name == name {
-
-				handler(owner, notification)
-			}
-		}
+		return _notificationManager.observe(owner, notificationName: name, handler: handler)
 	}
 }
 

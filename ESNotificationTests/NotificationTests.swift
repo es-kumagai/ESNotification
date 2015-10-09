@@ -29,13 +29,11 @@ class NotificationTests: XCTestCase {
 
 	func testNotificationName() {
 	
-		let bundleName = NSBundle(forClass: self.dynamicType).infoDictionary!["CFBundleName"] as! String
-		
 		let customNotificationName = CustomNotification.self.notificationIdentifier
 		let namedNotificationName = NamedNotification("TestNamedNotification").notificationIdentifier
 		
-		expected().equal(customNotificationName, "jp.ez-style.Notification." + bundleName + ".CustomNotification")
-		expected("NamedNotification も nameOf 関数では名前ではなく固有の識別子を取得します。").equal(namedNotificationName, "jp.ez-style.Notification.ESNotification.NamedNotification")
+		expected().equal(customNotificationName, "jp.ez-style.Notification.CustomNotification")
+		expected("NamedNotification も nameOf 関数では名前ではなく固有の識別子を取得します。").equal(namedNotificationName, "jp.ez-style.Notification.NamedNotification")
 	}
 	
     func testRawNotification() {
