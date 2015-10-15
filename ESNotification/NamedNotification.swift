@@ -9,7 +9,7 @@
 import Foundation
 
 /// This Notification represent almost the same thing as NSNotification.
-@objc public class NamedNotification : NSObject, _Notification, RawNotificationConvertible, RawNotificationType {
+@objc public class NamedNotification : NSObject, Postable, RawNotificationConvertible, RawNotificationType {
 	
 	public typealias UserInfo = [NSObject : AnyObject]
 	

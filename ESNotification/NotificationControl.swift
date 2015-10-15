@@ -13,15 +13,6 @@ private let NotificationRawNamePrefix = "jp.ez-style.Notification."
 
 extension _Notification {
 	
-	/// Post the `notification`.
-	public func post() {
-		
-		let notificationCenter = NSNotificationCenter.defaultCenter()
-		let rawNotification = self.makeRawNotificationForNativePost()
-		
-		notificationCenter.postNotification(rawNotification)
-	}
-	
 	/// Get name of the `notification`.
 	public var notificationIdentifier:String {
 		
@@ -32,31 +23,6 @@ extension _Notification {
 	public static var notificationIdentifier:String {
 
 		return "\(NotificationRawNamePrefix)\(self)"
-	}
-	
-	/// Create an NSNotification from the `notification`.
-	func makeRawNotificationForNativePost() -> NSNotification {
-		
-		if let notification = self as? RawNotificationType {
-			
-			return notification.rawNotification
-		}
-		else {
-			
-			let name = self.dynamicType.notificationIdentifier
-			let object = self
-			
-			return NSNotification(name: name, object: object, userInfo:nil)
-		}
-	}
-}
-
-extension Notification {
-
-	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	public static func observeBy<OWNER:AnyObject>(owner:OWNER, handler:(OWNER,Self)->Void) -> NotificationManager.HandlerID {
-		
-		return _notificationManager.observe(owner, handler: handler)
 	}
 }
 
@@ -79,15 +45,6 @@ extension NSNotification {
 			
 			return nil
 		}
-	}
-}
-
-extension NamedNotification {
-	
-	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	public static func observe<OWNER:AnyObject>(name:String, by owner:OWNER, handler:(OWNER,NamedNotification)->Void) -> NotificationManager.HandlerID {
-		
-		return _notificationManager.observe(owner, notificationName: name, handler: handler)
 	}
 }
 

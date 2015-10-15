@@ -11,7 +11,7 @@ import Foundation
 // MARK: - Protocol
 
 /// All native notifications need to confirm to the protocol.
-@objc public protocol Notification : _Notification {
+@objc public protocol Notification : _Notification, Postable, Observeable {
 
 }
 

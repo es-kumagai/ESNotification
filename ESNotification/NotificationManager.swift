@@ -124,13 +124,13 @@ public class NotificationManager {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	public func observe<OWNER:AnyObject, T:Notification>(owner:OWNER, notification:T.Type, handler:(OWNER,T)->Void) -> HandlerID {
+	public func observe<OWNER:AnyObject, T:Observeable>(owner:OWNER, notification:T.Type, handler:(OWNER,T)->Void) -> HandlerID {
 		
 		return self.observe(owner, handler: handler)
 	}
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	public func observe<OWNER:AnyObject, T:Notification>(owner:OWNER, handler:(OWNER,T)->Void) -> HandlerID {
+	public func observe<OWNER:AnyObject, T:Observeable>(owner:OWNER, handler:(OWNER,T)->Void) -> HandlerID {
 
 		let _getNotification:(_Notification)->T = {
 			
