@@ -80,12 +80,10 @@ MyNativeNotification().post()
 
 You can observe `Native Notification` in Objective-C.
 
-If you want to observe Native Notifications, previously you must get the Notification name to use  `notificationIdentifier` property in Notification protocol.
+If you want to observe Native Notifications, previously you must your notification class inherit NativeNotificationObject.
 
 ```swift
-final class MyNativeNotification : NSObject, Notification {
-
-	static let name = MyNativeNotification.notificationIdentifier
+final class MyNativeNotification : NativeNotificationObject {
 }
 ```
 

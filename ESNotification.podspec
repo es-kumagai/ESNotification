@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ESNotification"
-  s.version      = "0.2.3"
+  s.version      = "0.2.4"
   s.summary      = "A type-safe notification management system for iOS/OSX written in Swift 2."
 
   s.description  = <<-DESC

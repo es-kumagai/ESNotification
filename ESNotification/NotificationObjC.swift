@@ -10,6 +10,8 @@ import Foundation
 
 public class NativeNotificationObject : NSObject, Notification {
 	
+	public static let name = NativeNotificationObject.notificationIdentifier
+	
 	public func postNotification() {
 		
 		self.post()

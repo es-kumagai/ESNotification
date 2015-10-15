@@ -11,8 +11,6 @@ import ESNotification
 
 final class MyNativeNotification : NativeNotificationObject {
 
-	static let name = MyNativeNotification.notificationIdentifier
-	
 	var myValue:Int
 	
 	init(myValue:Int) {
