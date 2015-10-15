@@ -11,11 +11,11 @@ import Foundation
 // MARK: - Protocol
 
 /// All native notifications need to confirm to the protocol.
-@objc public protocol Notification : _Notification, Postable, Observeable {
+@objc public protocol Notification : NotificationProtocol, Postable {
 
 }
 
-/// All native notifications need to confirm to the protocol.
-@objc public protocol _Notification : AnyObject {
+/// All notifications (without NSNotification) need to confirm to the protocol.
+@objc public protocol NotificationProtocol : AnyObject {
 	
 }

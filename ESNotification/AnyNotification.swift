@@ -11,9 +11,9 @@ import Foundation
 /// This notification type is used to handle any of notifications.
 public final class AnyNotification : NSObject, Notification {
 
-	public private(set) var notification:_Notification
+	public private(set) var notification:NotificationProtocol
 	
-	init(_ notification:_Notification) {
+	init(_ notification:NotificationProtocol) {
 		
 		self.notification = notification
 		

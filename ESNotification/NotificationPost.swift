@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public protocol Postable : _Notification {
+@objc public protocol Postable : NotificationProtocol {
 	
 }
 

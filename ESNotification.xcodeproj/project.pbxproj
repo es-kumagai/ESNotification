@@ -54,6 +54,8 @@
 		B17475F31B6CE0D500A86785 /* RawNotificationConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17475E51B6CE0D500A86785 /* RawNotificationConvertible.swift */; };
 		B17475F61B6CE11200A86785 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17475F51B6CE11200A86785 /* NotificationTests.swift */; };
 		B17475F71B6CE11200A86785 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17475F51B6CE11200A86785 /* NotificationTests.swift */; };
+		B1F2FE6B1BCF30AD00DE716D /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */; settings = {ASSET_TAGS = (); }; };
+		B1F2FE6C1BCF30AD00DE716D /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */; settings = {ASSET_TAGS = (); }; };
 		C8F822083B65523B72E837B0 /* Pods_RunModalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE62C38B0D23D1E3CFE0B2F2 /* Pods_RunModalTestApp.framework */; };
 		DA4177733F8741AACC0E09FD /* Pods_ESNotification_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD38000B9128AF3843B606EA /* Pods_ESNotification_iOS.framework */; };
 		E6CD40E556A62094744B1512 /* Pods_ESNotification_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90ECBF946957FD1DEBF1072 /* Pods_ESNotification_OSX.framework */; };
@@ -176,6 +178,7 @@
 		B17475F81B6CE16100A86785 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B1E89A791B745F310062E12E /* ESNotification.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ESNotification.podspec; sourceTree = "<group>"; };
 		B1E89A7A1B745F5F0062E12E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deprecated.swift; sourceTree = "<group>"; };
 		BD38000B9128AF3843B606EA /* Pods_ESNotification_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ESNotification_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C90ECBF946957FD1DEBF1072 /* Pods_ESNotification_OSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ESNotification_OSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85FA15D8D814FDF6075B5DB /* Pods_ObjCTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjCTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -359,6 +362,7 @@
 				B17475E31B6CE0D500A86785 /* NamedNotification.swift */,
 				B17475E41B6CE0D500A86785 /* AnyNotification.swift */,
 				B17475E51B6CE0D500A86785 /* RawNotificationConvertible.swift */,
+				B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */,
 			);
 			path = ESNotification;
 			sourceTree = "<group>";
@@ -934,6 +938,7 @@
 				B14B4E511BCF25FA007D5DE6 /* NotificationPost.swift in Sources */,
 				B17475EE1B6CE0D500A86785 /* NamedNotification.swift in Sources */,
 				B17475F21B6CE0D500A86785 /* RawNotificationConvertible.swift in Sources */,
+				B1F2FE6B1BCF30AD00DE716D /* Deprecated.swift in Sources */,
 				B12BA0881B7C072E001F8080 /* NotificationControl_iOS.swift in Sources */,
 				B17475F01B6CE0D500A86785 /* AnyNotification.swift in Sources */,
 				B14B4E541BCF2605007D5DE6 /* NotificationObserve.swift in Sources */,
@@ -959,6 +964,7 @@
 				B14B4E521BCF25FA007D5DE6 /* NotificationPost.swift in Sources */,
 				B17475EF1B6CE0D500A86785 /* NamedNotification.swift in Sources */,
 				B17475F31B6CE0D500A86785 /* RawNotificationConvertible.swift in Sources */,
+				B1F2FE6C1BCF30AD00DE716D /* Deprecated.swift in Sources */,
 				B12BA0861B7C0723001F8080 /* NotificationControl_OSX.swift in Sources */,
 				B17475F11B6CE0D500A86785 /* AnyNotification.swift in Sources */,
 				B14B4E551BCF2605007D5DE6 /* NotificationObserve.swift in Sources */,

@@ -8,11 +8,7 @@
 
 import Foundation
 
-@objc public protocol Observeable : _Notification {
-
-}
-
-extension Observeable {
+extension Notification {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	public static func observeBy<OWNER:AnyObject>(owner:OWNER, handler:(OWNER,Self)->Void) -> NotificationManager.HandlerID {

@@ -10,14 +10,14 @@ import Foundation
 
 internal enum NotificationBox {
 	
-	case NativeNotification(_Notification)
+	case NativeNotification(NotificationProtocol)
 	case RawNotification(NSNotification)
 
-	func value() -> _Notification {
+	func value() -> NotificationProtocol {
 		
 		guard case let .NativeNotification(value) = self else {
 			
-			fatalError("Type mismatch (expected \(_Notification.self)).")
+			fatalError("Type mismatch (expected \(NotificationProtocol.self)).")
 		}
 		
 		return value
@@ -36,7 +36,7 @@ internal enum NotificationBox {
 
 extension RangeReplaceableCollectionType where Generator.Element == NotificationBox {
 	
-	mutating func append(notification:_Notification) {
+	mutating func append(notification:NotificationProtocol) {
 		
 		self.append(.NativeNotification(notification))
 	}
