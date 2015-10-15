@@ -56,6 +56,8 @@
 		B17475F71B6CE11200A86785 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17475F51B6CE11200A86785 /* NotificationTests.swift */; };
 		B1F2FE6B1BCF30AD00DE716D /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */; settings = {ASSET_TAGS = (); }; };
 		B1F2FE6C1BCF30AD00DE716D /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */; settings = {ASSET_TAGS = (); }; };
+		B1F2FE711BCF396A00DE716D /* NotificationObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE701BCF396A00DE716D /* NotificationObjC.swift */; settings = {ASSET_TAGS = (); }; };
+		B1F2FE721BCF396A00DE716D /* NotificationObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE701BCF396A00DE716D /* NotificationObjC.swift */; settings = {ASSET_TAGS = (); }; };
 		C8F822083B65523B72E837B0 /* Pods_RunModalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE62C38B0D23D1E3CFE0B2F2 /* Pods_RunModalTestApp.framework */; };
 		DA4177733F8741AACC0E09FD /* Pods_ESNotification_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD38000B9128AF3843B606EA /* Pods_ESNotification_iOS.framework */; };
 		E6CD40E556A62094744B1512 /* Pods_ESNotification_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90ECBF946957FD1DEBF1072 /* Pods_ESNotification_OSX.framework */; };
@@ -179,6 +181,7 @@
 		B1E89A791B745F310062E12E /* ESNotification.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ESNotification.podspec; sourceTree = "<group>"; };
 		B1E89A7A1B745F5F0062E12E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deprecated.swift; sourceTree = "<group>"; };
+		B1F2FE701BCF396A00DE716D /* NotificationObjC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationObjC.swift; sourceTree = "<group>"; };
 		BD38000B9128AF3843B606EA /* Pods_ESNotification_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ESNotification_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C90ECBF946957FD1DEBF1072 /* Pods_ESNotification_OSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ESNotification_OSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85FA15D8D814FDF6075B5DB /* Pods_ObjCTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjCTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -354,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				B17475E01B6CE0D500A86785 /* Notification.swift */,
+				B1F2FE701BCF396A00DE716D /* NotificationObjC.swift */,
 				B14B4E501BCF25FA007D5DE6 /* NotificationPost.swift */,
 				B14B4E531BCF2605007D5DE6 /* NotificationObserve.swift */,
 				B142EB451BC80F9800EF9A98 /* NotificationBox.swift */,
@@ -943,6 +947,7 @@
 				B17475F01B6CE0D500A86785 /* AnyNotification.swift in Sources */,
 				B14B4E541BCF2605007D5DE6 /* NotificationObserve.swift in Sources */,
 				B17475EC1B6CE0D500A86785 /* NotificationManager.swift in Sources */,
+				B1F2FE711BCF396A00DE716D /* NotificationObjC.swift in Sources */,
 				B17475EA1B6CE0D500A86785 /* NotificationControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -969,6 +974,7 @@
 				B17475F11B6CE0D500A86785 /* AnyNotification.swift in Sources */,
 				B14B4E551BCF2605007D5DE6 /* NotificationObserve.swift in Sources */,
 				B17475ED1B6CE0D500A86785 /* NotificationManager.swift in Sources */,
+				B1F2FE721BCF396A00DE716D /* NotificationObjC.swift in Sources */,
 				B17475EB1B6CE0D500A86785 /* NotificationControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

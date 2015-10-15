@@ -109,15 +109,10 @@ When a Native notification received by NSNotificationCenter, the Native Notifica
 
 ### Post a Native Notification
 
-If you want to post a Native Notification in Objective-C, You must implement a method for post in Swift.
+If you want to post a Native Notification in Objective-C, You must inherit your notification class from `NativeNotificationObject` class in Swift.
 
 ```swift
-@objc final class MyNativeNotification : NSObject, Notification {
-	
-	func postNotification() {
-	
-		self.post()
-	}
+final class MyNativeNotification : NativeNotification {	
 }
 ```
 

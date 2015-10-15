@@ -9,7 +9,7 @@
 import Foundation
 import ESNotification
 
-final class MyNativeNotification : NSObject, Notification {
+final class MyNativeNotification : NativeNotificationObject {
 
 	static let name = MyNativeNotification.notificationIdentifier
 	
@@ -20,10 +20,5 @@ final class MyNativeNotification : NSObject, Notification {
 		self.myValue = myValue
 		
 		super.init()
-	}
-	
-	func postNotification() {
-		
-		self.post()
-	}
+	}	
 }
