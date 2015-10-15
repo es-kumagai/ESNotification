@@ -231,7 +231,7 @@ extension NotificationManager {
 
 		guard !NotificationManager.dammingNotifications else {
 			
-			self.dummNotification(notification)
+			self.dammNotification(notification)
 			return
 		}
 		
@@ -246,7 +246,7 @@ extension NotificationManager {
 		
 		guard !NotificationManager.dammingNotifications else {
 			
-			self.dummNotification(rawNotification)
+			self.dammNotification(rawNotification)
 			return
 		}
 		
@@ -279,9 +279,9 @@ extension NotificationManager {
 		self._received(NamedNotification(rawNotification: rawNotification))
 	}
 
-	private func _received(dummedNotification:NotificationBox) {
+	private func _received(dammedNotification:NotificationBox) {
 		
-		switch dummedNotification {
+		switch dammedNotification {
 			
 		case .NativeNotification(let notification):
 			self._received(notification)
@@ -291,28 +291,28 @@ extension NotificationManager {
 		}
 	}
 	
-	func dummNotification(notification:NotificationProtocol) {
+	func dammNotification(notification:NotificationProtocol) {
 		
 		invokeOnProcessingQueue {
 			
-			self._dummNotification(notification)
+			self._dammNotification(notification)
 		}
 	}
 	
-	func dummNotification(rawNotification:NSNotification) {
+	func dammNotification(rawNotification:NSNotification) {
 		
 		invokeOnProcessingQueue {
 			
-			self._dummNotification(rawNotification)
+			self._dammNotification(rawNotification)
 		}
 	}
 	
-	func _dummNotification(notification:NotificationProtocol) {
+	func _dammNotification(notification:NotificationProtocol) {
 	
 		self.notificationDam.append(notification)
 	}
 	
-	func _dummNotification(rawNotification:NSNotification) {
+	func _dammNotification(rawNotification:NSNotification) {
 		
 		self.notificationDam.append(rawNotification)
 	}

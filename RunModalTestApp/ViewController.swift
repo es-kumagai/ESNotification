@@ -63,11 +63,11 @@ class ViewController: NSViewController {
 		center.postNotification(NSNotification(name: ViewController.NamedTestBNotification, object: nil))
 	}
 	
-	@IBAction func dummingToggle(sender:AnyObject?) {
+	@IBAction func dammingToggle(sender:AnyObject?) {
 		
 		NotificationManager.dammingNotifications = !NotificationManager.dammingNotifications
 		
-		NSLog("Dumming = \(NotificationManager.dammingNotifications)")
+		NSLog("Damming = \(NotificationManager.dammingNotifications)")
 	}
 }
 
