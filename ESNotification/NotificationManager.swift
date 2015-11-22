@@ -98,7 +98,7 @@ public class NotificationManager {
 		self._notificationCenter.removeObserver(self._observer)
 	}
 
-	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
+	/// Observe an named notification. When the named notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
 	public func observe<OWNER:AnyObject>(owner:OWNER, notificationName:String, handler:(NamedNotification)->Void) -> HandlerID {
 		
