@@ -385,7 +385,8 @@ class _NotificationHandler {
 	/// Invoke notification handler. If the `notification` type is not same type as self.target, do nothing.
 	func invoke(notification:NotificationProtocol) {
 
-		guard self.owner != nil else {
+		// Keep self.owner until finished invoke handler.
+		guard let owner = self.owner else {
 			
 			return
 		}
@@ -393,7 +394,7 @@ class _NotificationHandler {
 		switch self.target {
 			
 		case notification.dynamicType, AnyNotification.self:
-			self._invokeHandlerOnMainThread(notification)
+			self._invokeHandlerOnMainThread(owner, notification)
 			
 		default:
 			break
@@ -401,11 +402,17 @@ class _NotificationHandler {
 	}
 
 	/// Invoke notification handler on main thread asynchronously.
-	func _invokeHandlerOnMainThread(notification:NotificationProtocol) {
+	func _invokeHandlerOnMainThread(owner: AnyObject, _ notification:NotificationProtocol) {
 		
-		invokeAsyncOnMainQueue {
+		func _invoke(owner: AnyObject, _ notification:NotificationProtocol) {
 			
 			self.handler(notification)
+		}
+
+		invokeAsyncOnMainQueue {
+			
+			/// keep `owner` until finish invoking on main thread.
+			_invoke(owner, notification)
 		}
 	}
 }
