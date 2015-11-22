@@ -34,31 +34,20 @@ final class MyNativeNotification : Notification {
 You can observe a Notification using `observeBy:handler:` method privided by a type conforms to `Notification` protocol.
 
 ```swift
-MyNativeNotification.observeBy(self) { notification -> Void in
+MyNativeNotification.observeBy(self) { [unowned self] notification -> Void in
 
 	...
 }
 ```
 
-To specifiy the `handler` closure type, you can omit specify a notification type for observing by argument. 
-
-Usually, you want to use `self` instance in `handler` closure, you need to pass the instance as a weak reference using capture list. 
-
-e.g.
-
-```swift
-MyNativeNotification.observeBy(self) { [weak self] notification -> Void in
-
-	...
-}
-```
+> Usually, you want to use `self` instance in `handler` closure, you need to pass the instance as an **unowned** reference or a **weak** reference using capture list. 
 
 #### Named Notification (includes NSNotification)
 
 You can observe a Named Notification easily by using `observe:by:handler:` method. If same name of named notification posted, you can handle it.
 
 ```swift
-NamedNotification.observe(name, by: self) { notification in
+NamedNotification.observe(name, by: self) { [unowned self] notification in
 			
 	...
 }
