@@ -9,7 +9,7 @@
 import Cocoa
 import ESNotification
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NotificationObserveable {
 
 	static let NamedTestANotification = "ESNotification.NamedNotificationForTestA"
 	static let NamedTestBNotification = "ESNotification.NamedNotificationForTestB"
@@ -28,17 +28,24 @@ class ViewController: NSViewController {
 
 	override func viewWillAppear() {
 		
-		SampleNotification.observeBy(self) { notification in
-			
+		super.viewWillAppear()
+		
+		self.observeNotification { (notification: SampleNotification) in
+
 			print("\(notification) received.")
 		}
 		
-		NamedNotification.observe(ViewController.NamedTestANotification, by: self) { notification in
+		self.observeNotification(SampleNotification.self) { notification in
+			
+			print("\tIn other way: \(notification) received.")
+		}
+		
+		self.observeNotificationNamed(ViewController.NamedTestANotification) { notification in
 			
 			print("\(notification) received by handler for Test A.")
 		}
 		
-		NamedNotification.observe(ViewController.NamedTestBNotification, by: self) { notification in
+		self.observeNotificationNamed(ViewController.NamedTestBNotification) { notification in
 			
 			print("\(notification) received by handler for Test B.")
 		}
@@ -50,14 +57,14 @@ class ViewController: NSViewController {
 	}
 	
 	@IBAction func sendNamedNotificationA(sender:AnyObject?) {
-		
-		let center = NSNotificationCenter.defaultCenter()
-		
-		center.postNotification(NSNotification(name: ViewController.NamedTestANotification, object: nil))
+
+		// Post using native features.
+		NamedNotification(ViewController.NamedTestANotification).post()
 	}
 	
 	@IBAction func sendNamedNotificationB(sender:AnyObject?) {
-		
+
+		// Post using NSNotificationCenter.
 		let center = NSNotificationCenter.defaultCenter()
 		
 		center.postNotification(NSNotification(name: ViewController.NamedTestBNotification, object: nil))

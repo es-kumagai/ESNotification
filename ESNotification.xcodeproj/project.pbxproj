@@ -54,6 +54,8 @@
 		B17475F31B6CE0D500A86785 /* RawNotificationConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17475E51B6CE0D500A86785 /* RawNotificationConvertible.swift */; };
 		B17475F61B6CE11200A86785 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17475F51B6CE11200A86785 /* NotificationTests.swift */; };
 		B17475F71B6CE11200A86785 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17475F51B6CE11200A86785 /* NotificationTests.swift */; };
+		B1A9DADB1C019BA800A895E5 /* NotificationObserveable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A9DADA1C019BA800A895E5 /* NotificationObserveable.swift */; };
+		B1A9DADC1C019BA800A895E5 /* NotificationObserveable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A9DADA1C019BA800A895E5 /* NotificationObserveable.swift */; };
 		B1F2FE6B1BCF30AD00DE716D /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */; };
 		B1F2FE6C1BCF30AD00DE716D /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */; };
 		B1F2FE711BCF396A00DE716D /* NotificationObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE701BCF396A00DE716D /* NotificationObjC.swift */; };
@@ -178,6 +180,7 @@
 		B17475F41B6CE0EB00A86785 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B17475F51B6CE11200A86785 /* NotificationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		B17475F81B6CE16100A86785 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		B1A9DADA1C019BA800A895E5 /* NotificationObserveable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationObserveable.swift; sourceTree = "<group>"; };
 		B1E89A791B745F310062E12E /* ESNotification.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ESNotification.podspec; sourceTree = "<group>"; };
 		B1E89A7A1B745F5F0062E12E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deprecated.swift; sourceTree = "<group>"; };
@@ -360,6 +363,7 @@
 				B1F2FE701BCF396A00DE716D /* NotificationObjC.swift */,
 				B14B4E501BCF25FA007D5DE6 /* NotificationPost.swift */,
 				B14B4E531BCF2605007D5DE6 /* NotificationObserve.swift */,
+				B1A9DADA1C019BA800A895E5 /* NotificationObserveable.swift */,
 				B142EB451BC80F9800EF9A98 /* NotificationBox.swift */,
 				B17475E11B6CE0D500A86785 /* NotificationControl.swift */,
 				B17475E21B6CE0D500A86785 /* NotificationManager.swift */,
@@ -937,6 +941,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1A9DADB1C019BA800A895E5 /* NotificationObserveable.swift in Sources */,
 				B142EB461BC80F9800EF9A98 /* NotificationBox.swift in Sources */,
 				B17475E81B6CE0D500A86785 /* Notification.swift in Sources */,
 				B14B4E511BCF25FA007D5DE6 /* NotificationPost.swift in Sources */,
@@ -964,6 +969,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1A9DADC1C019BA800A895E5 /* NotificationObserveable.swift in Sources */,
 				B142EB471BC80F9800EF9A98 /* NotificationBox.swift in Sources */,
 				B17475E91B6CE0D500A86785 /* Notification.swift in Sources */,
 				B14B4E521BCF25FA007D5DE6 /* NotificationPost.swift in Sources */,
