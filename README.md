@@ -34,7 +34,7 @@ final class MyNativeNotification : Notification {
 You can observe a Notification using `observeBy:handler:` method privided by a type conforms to `Notification` protocol.
 
 ```swift
-MyNativeNotification.observeBy(self) { owner, notification -> Void in
+MyNativeNotification.observeBy(self) { notification -> Void in
 
 	...
 }
@@ -42,14 +42,23 @@ MyNativeNotification.observeBy(self) { owner, notification -> Void in
 
 To specifiy the `handler` closure type, you can omit specify a notification type for observing by argument. 
 
-Usually, you set the first parameter `owner` to `self`. The `owner` is references by weak, and passed to `handler` closure.
+Usually, you want to use `self` instance in `handler` closure, you need to pass the instance as a weak reference using capture list. 
+
+e.g.
+
+```swift
+MyNativeNotification.observeBy(self) { [weak self] notification -> Void in
+
+	...
+}
+```
 
 #### Named Notification (includes NSNotification)
 
 You can observe a Named Notification easily by using `observe:by:handler:` method. If same name of named notification posted, you can handle it.
 
 ```swift
-NamedNotification.observe(name, by: self) { owner, notification in
+NamedNotification.observe(name, by: self) { notification in
 			
 	...
 }
@@ -59,9 +68,9 @@ NamedNotification.observe(name, by: self) { owner, notification in
 
 #### Note
 
-When a notification of `notification` Type posted, the `handler` closure is called on main thread.
+When a notification of `Notification` Type posted, the `handler` closure is called on main thread.
 
-At this time, the first parameter is reference of owner object and the second parameter is a posted notification. The notification can use as Handled Notification type own.
+At this time, the posted notification passed to parameter of `handler`. The notification can use as Handled Notification type own.
 
 > If owner released, the observing handler is released too.
 > When you want to release implicitly, save `HandlerID` returns by `observe` function, and call `releaseHandler` function with the Handler ID.

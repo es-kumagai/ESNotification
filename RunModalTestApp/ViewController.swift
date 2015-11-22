@@ -28,17 +28,17 @@ class ViewController: NSViewController {
 
 	override func viewWillAppear() {
 		
-		SampleNotification.observeBy(self) { owner, notification in
+		SampleNotification.observeBy(self) { notification in
 			
 			print("\(notification) received.")
 		}
 		
-		NamedNotification.observe(ViewController.NamedTestANotification, by: self) { owner, notification in
+		NamedNotification.observe(ViewController.NamedTestANotification, by: self) { notification in
 			
 			print("\(notification) received by handler for Test A.")
 		}
 		
-		NamedNotification.observe(ViewController.NamedTestBNotification, by: self) { owner, notification in
+		NamedNotification.observe(ViewController.NamedTestBNotification, by: self) { notification in
 			
 			print("\(notification) received by handler for Test B.")
 		}

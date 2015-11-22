@@ -100,15 +100,15 @@ public class NotificationManager {
 
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	public func observe<OWNER:AnyObject>(owner:OWNER, notificationName:String, handler:(OWNER,NamedNotification)->Void) -> HandlerID {
+	public func observe<OWNER:AnyObject>(owner:OWNER, notificationName:String, handler:(NamedNotification)->Void) -> HandlerID {
 		
-		let _handler = { (owner:AnyObject, notification: NotificationProtocol) -> Void in
+		let _handler = { (notification: NotificationProtocol) -> Void in
 			
 			let notification = notification as! NamedNotification
 			
 			if notification.name == notificationName {
 				
-				handler(owner as! OWNER, notification)
+				handler(notification)
 			}
 		}
 		
@@ -124,13 +124,13 @@ public class NotificationManager {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	public func observe<OWNER:AnyObject, T:NotificationProtocol>(owner:OWNER, notification:T.Type, handler:(OWNER,T)->Void) -> HandlerID {
+	public func observe<OWNER:AnyObject, T:NotificationProtocol>(owner:OWNER, notification:T.Type, handler:(T)->Void) -> HandlerID {
 		
 		return self.observe(owner, handler: handler)
 	}
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	public func observe<OWNER:AnyObject, T:NotificationProtocol>(owner:OWNER, handler:(OWNER,T)->Void) -> HandlerID {
+	public func observe<OWNER:AnyObject, T:NotificationProtocol>(owner:OWNER, handler:(T)->Void) -> HandlerID {
 
 		let _getNotification:(NotificationProtocol)->T = {
 			
@@ -144,9 +144,9 @@ public class NotificationManager {
 			}
 		}
 		
-		let _handler:(AnyObject, NotificationProtocol) -> Void = {
+		let _handler:(NotificationProtocol) -> Void = {
 			
-			handler($0 as! OWNER, _getNotification($1))
+			handler(_getNotification($0))
 		}
 		
 		return invokeOnProcessingQueueSynchronously {
@@ -357,10 +357,10 @@ class _NotificationHandler {
 	private(set) var handlerID:NotificationManager.HandlerID
 	private(set) var target:NotificationProtocol.Type
 	private(set) var targetName:String?
-	private(set) var handler:(AnyObject,NotificationProtocol)->Void
+	private(set) var handler:(NotificationProtocol)->Void
 	private(set) weak var owner:AnyObject?
 	
-	init(_ owner:AnyObject, target:NotificationProtocol.Type, targetName:String?, handler:(AnyObject,NotificationProtocol)->Void) {
+	init(_ owner:AnyObject, target:NotificationProtocol.Type, targetName:String?, handler:(NotificationProtocol)->Void) {
 		
 		self.handlerID = _NotificationHandler._getNextHandlerID()
 		self.owner = owner
@@ -384,26 +384,28 @@ class _NotificationHandler {
 	
 	/// Invoke notification handler. If the `notification` type is not same type as self.target, do nothing.
 	func invoke(notification:NotificationProtocol) {
-		
-		if let owner:AnyObject = self.owner {
+
+		guard self.owner != nil else {
 			
-			switch self.target {
-				
-			case notification.dynamicType, AnyNotification.self:
-				self._invokeHandlerOnMainThread(owner, notification)
-				
-			default:
-				break
-			}
+			return
+		}
+
+		switch self.target {
+			
+		case notification.dynamicType, AnyNotification.self:
+			self._invokeHandlerOnMainThread(notification)
+			
+		default:
+			break
 		}
 	}
-	
+
 	/// Invoke notification handler on main thread asynchronously.
-	func _invokeHandlerOnMainThread(owner:AnyObject, _ notification:NotificationProtocol) {
+	func _invokeHandlerOnMainThread(notification:NotificationProtocol) {
 		
 		invokeAsyncOnMainQueue {
 			
-			self.handler(owner, notification)
+			self.handler(notification)
 		}
 	}
 }
