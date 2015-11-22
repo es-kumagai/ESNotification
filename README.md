@@ -4,16 +4,17 @@ A type-safe notification management system for iOS/OSX written in Swift 2.
 
 It is a swift module that powerfully notification management system using type-safe notification types. Notifications using this system are compatible with NSNotificationCenter.
 
-This module written in Swift 2.0. Supports Objective-C.
+This module written in Swift 2.0 and the module supports Objective-C.
 
-## How to use
+# Usage in Swift
 
-### Definition
+## Definition
 
 You define Notifications by Object that confirms to `Notification` Protocol.
 
 ```swift
 final class MyNativeNotification : Notification {
+
 }
 ```
 
@@ -27,9 +28,54 @@ final class MyNativeNotification : Notification {
 }
 ```
 
-### Observe
+## Observe using NotificationObserveable object features
 
-#### Native Notification
+### Preparation
+
+First, an object which observe some notifications need to conforms to `NotificationObserveable ` protocol.
+
+```swift
+extension ViewController : NotificationObserveable {
+
+}
+```
+
+### Native Notification
+
+Then, to observe an Native Notification (e.g. `MyNativeNotification`), use `observeNotification:` method defined in `NotificationObserveable` protocol.
+
+```swift
+self.observeNotification { [unowned self] (notification: MyNativeNotification) in
+	
+	...
+}
+```
+
+In other way, you can specify an notification type using argument too.
+
+```swift
+self.observeNotification(MyNativeNotification.self) { [unowned self] notification in
+	
+	...
+}
+```
+
+### Named Notification (includes NSNotification)
+
+You can observer a Named Notification (includes Legacy NSNotification) using `observeNotificationNamed:handler` method defined in `NotificationObserveable` protocol.
+
+```swift
+self.observeNotificationNamed(NSApplicationWillTerminateNotification) { [unowned self] notification in
+	
+	...
+}
+```
+
+> Type of `notification` argument is `NamedNotification` type.
+
+## Observe using Notification type features
+
+### Native Notification
 
 You can observe a Notification using `observeBy:handler:` method privided by a type conforms to `Notification` protocol.
 
@@ -42,7 +88,7 @@ MyNativeNotification.observeBy(self) { [unowned self] notification -> Void in
 
 > Usually, you want to use `self` instance in `handler` closure, you need to pass the instance as an **unowned** reference or a **weak** reference using capture list. 
 
-#### Named Notification (includes NSNotification)
+### Named Notification (includes NSNotification)
 
 You can observe a Named Notification easily by using `observe:by:handler:` method. If same name of named notification posted, you can handle it.
 
@@ -55,7 +101,7 @@ NamedNotification.observe(name, by: self) { [unowned self] notification in
 
 > NSNotification can be handle in the same way.
 
-#### Note
+## Note for Observing
 
 When a notification of `Notification` Type posted, the `handler` closure is called on main thread.
 
@@ -64,7 +110,7 @@ At this time, the posted notification passed to parameter of `handler`. The noti
 > If owner released, the observing handler is released too.
 > When you want to release implicitly, save `HandlerID` returns by `observe` function, and call `releaseHandler` function with the Handler ID.
 
-### Post
+## Post a Notification
 
 You can post a Notification using `post` function.
 
@@ -72,9 +118,23 @@ You can post a Notification using `post` function.
 MyNativeNotification().post()
 ```
 
-## Use in Objective-C
+You can post a Named Notification too.
 
-### Observing
+```swift
+NamedNotification(NSApplicationWillTerminateNotification).post()
+```
+
+You can post a Named Notification using Legacy `NSNotificationCenter` too. The following code is same to below code.
+
+```swift
+let notification = NSNotification(name: NSApplicationWillTerminateNotification, object: nil)
+
+NSNotificationCenter.defaultCenter().postNotification(notification)
+```
+
+# Usage in Objective-C
+
+## Observing
 
 You can observe `Native Notification` in Objective-C.
 
@@ -90,7 +150,7 @@ Then you observe Notifications that have the Notification name by NSNotification
 ```objc
 	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
 
-	[nc addObserver:self selector:@selector(myNativeNotificationReceived:) name:MyNativeNotification.name object:nil];
+	[nc addObserver:self selector:@selector(myNativeNotificationReceived:) name:MyNativeNotification.notificationIdentifier object:nil];
 ```
 
 When a Native notification received by NSNotificationCenter, the Native Notification instance set to `object` property of NSNotification passed by parameter.
@@ -103,7 +163,7 @@ When a Native notification received by NSNotificationCenter, the Native Notifica
 }
 ```
 
-### Post a Native Notification
+## Post a Native Notification
 
 If you want to post a Native Notification in Objective-C, You must inherit your notification class from `NativeNotificationObject` class in Swift.
 
