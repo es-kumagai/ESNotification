@@ -177,3 +177,15 @@ Then, you call the method when you want to post the Native Notification.
 ```Objective-C
 [[[MyNativeNotification alloc] init] postNotification];
 ```
+
+# Installation
+
+ESNotification can install using CocoaPods.
+
+```podfile
+use_frameworks!
+
+pod 'ESNotification', :git => 'https://github.com/EZ-NET/ESNotification.git'
+pod 'ESThread', :git => 'https://github.com/EZ-NET/ESThread.git'
+pod 'Swim', :git => 'https://github.com/EZ-NET/ESSwim.git'
+```
