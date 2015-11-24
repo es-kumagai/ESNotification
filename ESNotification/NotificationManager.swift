@@ -52,7 +52,7 @@ public class NotificationManager {
 		}
 	}
 	
-	private var notificationDam = [NotificationBox]()
+	private var _notificationDam = [NotificationBox]()
 	
 	public struct HandlerID : Equatable {
 		
@@ -309,20 +309,20 @@ extension NotificationManager {
 	
 	func _dammNotification(notification:NotificationProtocol) {
 	
-		self.notificationDam.append(notification)
+		self._notificationDam.append(notification)
 	}
 	
 	func _dammNotification(rawNotification:NSNotification) {
 		
-		self.notificationDam.append(rawNotification)
+		self._notificationDam.append(rawNotification)
 	}
 	
 	func invokeDammedNotifications() {
 		
 		invokeOnProcessingQueue {
 			
-			self.notificationDam.forEach(self._received)
-			self.notificationDam.removeAll()
+			self._notificationDam.forEach(self._received)
+			self._notificationDam.removeAll()
 		}
 	}
 
