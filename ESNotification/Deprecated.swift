@@ -42,9 +42,9 @@ public func releaseHandler(handlerID:NotificationManager.HandlerID) {}
 @noreturn func makeRawNotificationForNativePost<T:Notification>(notification:T) -> NSNotification {}
 
 /// Returns a boolean value whether the `rawNotification` is an Native notification.
-@available(*, unavailable, message="access the 'isOceanNativeNotification' property on the NSNotification")
+@available(*, unavailable, message="access the 'isESNativeNotification' property on the NSNotification")
 @noreturn func isNativeNotification(rawNotification:NSNotification) -> Bool {}
 
 /// Get the native notification from the `rawNotification`. Returns nil if `rawNotification` is not an Native notification.
-@available(*, unavailable, message="access the 'toOceanNativeNotification' method on the NSNotification")
+@available(*, unavailable, message="access the 'toESNativeNotification' method on the NSNotification")
 @noreturn func nativeNotificationFrom(rawNotification:NSNotification) -> Notification? {}

@@ -434,7 +434,7 @@ class _NotificationObserver : NSObject {
 	/// The method is called when the observer received an notification.
 	func received(rawNotification:NSNotification) {
 	
-		if let notification = rawNotification.toOceanNativeNotification() {
+		if let notification = rawNotification.toESNativeNotification() {
 
 			self._manager.received(notification)
 		}

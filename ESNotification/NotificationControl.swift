@@ -29,15 +29,15 @@ extension NotificationProtocol {
 extension NSNotification {
 	
 	/// Returns a boolean value whether the `rawNotification` is an Native notification.
-	var isOceanNativeNotification:Bool {
+	var isESNativeNotification:Bool {
 		
 		return self.name.hasPrefix(NotificationRawNamePrefix)
 	}
 	
 	/// Get the native notification from the `rawNotification`. Returns nil if `rawNotification` is not an Native notification.
-	func toOceanNativeNotification() -> NotificationProtocol? {
+	func toESNativeNotification() -> NotificationProtocol? {
 		
-		if self.isOceanNativeNotification {
+		if self.isESNativeNotification {
 			
 			return self.object as? NotificationProtocol
 		}
