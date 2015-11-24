@@ -28,21 +28,21 @@ final class MyNativeNotification : Notification {
 }
 ```
 
-## Observe using NotificationObserveable object features
+## Observe using NotificationObservable object features
 
 ### Preparation
 
-First, an object which observe some notifications need to conforms to `NotificationObserveable ` protocol.
+First, an object which observe some notifications need to conforms to `NotificationObservable ` protocol.
 
 ```swift
-extension ViewController : NotificationObserveable {
+extension ViewController : NotificationObservable {
 
 }
 ```
 
 ### Native Notification
 
-Then, to observe an Native Notification (e.g. `MyNativeNotification`), use `observeNotification:` method defined in `NotificationObserveable` protocol.
+Then, to observe an Native Notification (e.g. `MyNativeNotification`), use `observeNotification:` method defined in `NotificationObservable` protocol.
 
 ```swift
 self.observeNotification { [unowned self] (notification: MyNativeNotification) in
@@ -62,7 +62,7 @@ self.observeNotification(MyNativeNotification.self) { [unowned self] notificatio
 
 ### Named Notification (includes NSNotification)
 
-You can observer a Named Notification (includes Legacy NSNotification) using `observeNotificationNamed:handler` method defined in `NotificationObserveable` protocol.
+You can observer a Named Notification (includes Legacy NSNotification) using `observeNotificationNamed:handler` method defined in `NotificationObservable` protocol.
 
 ```swift
 self.observeNotificationNamed(NSApplicationWillTerminateNotification) { [unowned self] notification in

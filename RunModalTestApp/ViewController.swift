@@ -9,7 +9,7 @@
 import Cocoa
 import ESNotification
 
-class ViewController: NSViewController, NotificationObserveable {
+class ViewController: NSViewController, NotificationObservable {
 
 	static let NamedTestANotification = "ESNotification.NamedNotificationForTestA"
 	static let NamedTestBNotification = "ESNotification.NamedNotificationForTestB"
