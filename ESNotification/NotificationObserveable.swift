@@ -30,4 +30,10 @@ extension NotificationObserveable {
 		
 		return _notificationManager.observe(self, handler: handler)
 	}
+	
+	/// Release all observing handler for `self`.
+	public func releaseObservingNotifications() {
+		
+		_notificationManager.release(owner: self)
+	}
 }
