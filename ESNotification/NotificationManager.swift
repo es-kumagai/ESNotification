@@ -100,7 +100,7 @@ public class NotificationManager {
 
 	/// Observe an named notification. When the named notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	public func observe<OWNER:AnyObject>(owner:OWNER, notificationName:String, handler:(NamedNotification)->Void) -> HandlerID {
+	public func observe<OBSERVER:AnyObject>(observer:OBSERVER, notificationName:String, handler:(NamedNotification)->Void) -> HandlerID {
 		
 		let _handler = { (notification: NotificationProtocol) -> Void in
 			
@@ -114,7 +114,7 @@ public class NotificationManager {
 		
 		return invokeOnProcessingQueueSynchronously {
 			
-			let handler = _NotificationHandler(owner, target:NamedNotification.self, targetName: notificationName, handler: _handler)
+			let handler = _NotificationHandler(observer, target:NamedNotification.self, targetName: notificationName, handler: _handler)
 			
 			self._notificationHandlers.append(handler)
 			
@@ -124,13 +124,13 @@ public class NotificationManager {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	public func observe<OWNER:AnyObject, T:NotificationProtocol>(owner:OWNER, notification:T.Type, handler:(T)->Void) -> HandlerID {
+	public func observe<OBSERVER:AnyObject, T:NotificationProtocol>(observer:OBSERVER, notification:T.Type, handler:(T)->Void) -> HandlerID {
 		
-		return self.observe(owner, handler: handler)
+		return self.observe(observer, handler: handler)
 	}
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	public func observe<OWNER:AnyObject, T:NotificationProtocol>(owner:OWNER, handler:(T)->Void) -> HandlerID {
+	public func observe<OBSERVER:AnyObject, T:NotificationProtocol>(observer:OBSERVER, handler:(T)->Void) -> HandlerID {
 
 		let _getNotification:(NotificationProtocol)->T = {
 			
@@ -151,7 +151,7 @@ public class NotificationManager {
 		
 		return invokeOnProcessingQueueSynchronously {
 
-			let handler = _NotificationHandler(owner, target:T.self, targetName: nil, handler: _handler)
+			let handler = _NotificationHandler(observer, target:T.self, targetName: nil, handler: _handler)
 			
 			self._notificationHandlers.append(handler)
 			
@@ -160,29 +160,29 @@ public class NotificationManager {
 	}
 
 	/// Release all observing handler for the `target`.
-	public static func release(owner target:AnyObject) {
+	public static func release(observer target:AnyObject) {
 	
-		_notificationManager.release(owner: target)
+		_notificationManager.release(observer: target)
 	}
 	
 	/// Release all observing handler for the `target`.
-	public func release(owner target:AnyObject) {
+	public func release(observer target:AnyObject) {
 
 		// Invoke `release` synchronously.
 		invokeOnProcessingQueueSynchronously {
 
-			self._release(owner: target)
+			self._release(observer: target)
 		}
 	}
 
 	/// Release all observing handler for the `target`.
-	func _release(owner target:AnyObject) {
+	func _release(observer target:AnyObject) {
 		
 		let targetIndexes = self._notificationHandlers.indexesOf {
 			
-			if let owner:AnyObject = $0.owner {
+			if let observer:AnyObject = $0.observer {
 				
-				return owner === target
+				return observer === target
 			}
 			else {
 				
@@ -326,12 +326,12 @@ extension NotificationManager {
 		}
 	}
 
-	/// Remove notification handlers that the owner was released.
+	/// Remove notification handlers that the observer was released.
 	func _removeUnownedNotificationHandlers() {
 	
 		let releasedIndexes = self._notificationHandlers.indexesOf {
 			
-			$0.isOwnerReleased
+			$0.isObserverReleased
 		}
 		
 		self._notificationHandlers.remove(releasedIndexes)
@@ -358,12 +358,12 @@ class _NotificationHandler {
 	private(set) var target:NotificationProtocol.Type
 	private(set) var targetName:String?
 	private(set) var handler:(NotificationProtocol)->Void
-	private(set) weak var owner:AnyObject?
+	private(set) weak var observer:AnyObject?
 	
-	init(_ owner:AnyObject, target:NotificationProtocol.Type, targetName:String?, handler:(NotificationProtocol)->Void) {
+	init(_ observer:AnyObject, target:NotificationProtocol.Type, targetName:String?, handler:(NotificationProtocol)->Void) {
 		
 		self.handlerID = _NotificationHandler._getNextHandlerID()
-		self.owner = owner
+		self.observer = observer
 		self.target = target
 		self.targetName = targetName
 		self.handler = handler
@@ -376,17 +376,17 @@ class _NotificationHandler {
 		return self._lastHandlerID
 	}
 	
-	/// Returns a boolean value whether the owner is already released.
-	var isOwnerReleased:Bool {
+	/// Returns a boolean value whether the observer is already released.
+	var isObserverReleased:Bool {
 		
-		return self.owner == nil
+		return self.observer == nil
 	}
 	
 	/// Invoke notification handler. If the `notification` type is not same type as self.target, do nothing.
 	func invoke(notification:NotificationProtocol) {
 
-		// Keep self.owner until finished invoke handler.
-		guard let owner = self.owner else {
+		// Keep self.observer until finished invoke handler.
+		guard let observer = self.observer else {
 			
 			return
 		}
@@ -394,7 +394,7 @@ class _NotificationHandler {
 		switch self.target {
 			
 		case notification.dynamicType, AnyNotification.self:
-			self._invokeHandlerOnMainThread(owner, notification)
+			self._invokeHandlerOnMainThread(observer, notification)
 			
 		default:
 			break
@@ -402,17 +402,17 @@ class _NotificationHandler {
 	}
 
 	/// Invoke notification handler on main thread asynchronously.
-	func _invokeHandlerOnMainThread(owner: AnyObject, _ notification:NotificationProtocol) {
+	func _invokeHandlerOnMainThread(observer: AnyObject, _ notification:NotificationProtocol) {
 		
-		func _invoke(owner: AnyObject, _ notification:NotificationProtocol) {
+		func _invoke(observer: AnyObject, _ notification:NotificationProtocol) {
 			
 			self.handler(notification)
 		}
 
 		invokeAsyncOnMainQueue {
 			
-			/// keep `owner` until finish invoking on main thread.
-			_invoke(owner, notification)
+			/// keep `observer` until finish invoking on main thread.
+			_invoke(observer, notification)
 		}
 	}
 }

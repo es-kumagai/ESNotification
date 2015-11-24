@@ -107,7 +107,7 @@ When a notification of `Notification` Type posted, the `handler` closure is call
 
 At this time, the posted notification passed to parameter of `handler`. The notification can use as Handled Notification type own.
 
-> If owner released, the observing handler is released too.
+> If observer released, the observing handler is released too.
 > When you want to release implicitly, save `HandlerID` returns by `observe` function, and call `releaseHandler` function with the Handler ID.
 
 ## Post a Notification
