@@ -18,13 +18,13 @@ extension Postable {
 	public func post() {
 		
 		let notificationCenter = NSNotificationCenter.defaultCenter()
-		let rawNotification = self.makeRawNotificationForNativePost()
+		let rawNotification = self.makeRawNotification()
 		
 		notificationCenter.postNotification(rawNotification)
 	}
 	
 	/// Create an NSNotification from the `notification`.
-	func makeRawNotificationForNativePost() -> NSNotification {
+	public func makeRawNotification() -> NSNotification {
 		
 		if let notification = self as? RawNotificationType {
 			
