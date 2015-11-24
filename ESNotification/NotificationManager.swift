@@ -79,7 +79,7 @@ public class NotificationManager {
 	private var _notificationHandlers = ContiguousArray<_NotificationHandler>()
 	
 	/// Notification observer for Raw notifications.
-	private var _observer:_NotificationObserver!
+	private var _rawNotificationObserver:_NotificationObserver!
 	
 	/// Current Raw Notification Center.
 	private var _notificationCenter:NSNotificationCenter {
@@ -89,13 +89,13 @@ public class NotificationManager {
 	
 	init() {
 
-		self._observer = _NotificationObserver(self)
-		self._notificationCenter.addObserver(self._observer, selector: Selector("received:"), name: nil, object: nil)
+		self._rawNotificationObserver = _NotificationObserver(self)
+		self._notificationCenter.addObserver(self._rawNotificationObserver, selector: Selector("received:"), name: nil, object: nil)
 	}
 	
 	deinit {
 		
-		self._notificationCenter.removeObserver(self._observer)
+		self._notificationCenter.removeObserver(self._rawNotificationObserver)
 	}
 
 	/// Observe an named notification. When the named notification was post, the `handler` called in main thread.
