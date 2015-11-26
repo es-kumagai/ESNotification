@@ -26,7 +26,7 @@ extension NotificationObservable {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	public func observeNotification<T:NotificationProtocol>(type:T.Type, handler:(T)->Void) -> NotificationManager.HandlerID {
+	public func observeNotification<T:NotificationProtocol>(_ :T.Type, handler:(T)->Void) -> NotificationManager.HandlerID {
 		
 		return _notificationManager.observe(self, handler: handler)
 	}
