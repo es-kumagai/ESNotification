@@ -49,6 +49,16 @@ class ViewController: NSViewController, NotificationObservable {
 			
 			print("\(notification) received by handler for Test B.")
 		}
+		
+		self.observeNotification(ESSampleSwiftNotification.self) { notification in
+			
+			print("\(notification) received by handler for ESSampleSwiftNotification.")
+		}
+		
+		self.observeNotification(ESSampleObjCNotification.self) { notification in
+
+			print("\(notification) received by handler for ESSampleObjCNotification.")
+		}
 	}
 	
 	@IBAction func sendNotification(sender:AnyObject?) {
@@ -67,7 +77,12 @@ class ViewController: NSViewController, NotificationObservable {
 		// Post using NSNotificationCenter.
 		let center = NSNotificationCenter.defaultCenter()
 		
-		center.postNotification(NSNotification(name: ViewController.NamedTestBNotification, object: nil))
+		center.postNotificationName(ViewController.NamedTestBNotification, object: nil, userInfo: nil)
+	}
+	
+	@IBAction func sendNotificationByObjC(sender:AnyObject?) {
+		
+		ESNotificationTest.postNotificationByObjectiveC()
 	}
 	
 	@IBAction func dammingToggle(sender:AnyObject?) {

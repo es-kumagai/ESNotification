@@ -14,19 +14,19 @@
 - (void)viewWillAppear
 {
 	[super viewWillAppear];
-
-	NSLog(@"Start observing %@", MyNativeNotification.name);
+	
+	NSLog(@"Start observing %@", [MyNativeNotification class]);
 	
 	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
 
-	[nc addObserver:self selector:@selector(myNativeNotificationReceived:) name:MyNativeNotification.name object:nil];
+	[nc addObserver:self selector:@selector(myNativeNotificationReceived:) ESNotification:[MyNativeNotification class] object:nil];
 }
 
 - (void)viewDidDisappear
 {
 	[super viewDidDisappear];
 	
-	NSLog(@"Stop observing %@", MyNativeNotification.name);
+	NSLog(@"Stop observing %@", [MyNativeNotification class]);
 	
 	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
 	
@@ -44,10 +44,11 @@
 
 - (IBAction)postNotification:(NSButton*)sender
 {
+	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
 	MyNativeNotification* note = [[MyNativeNotification alloc] initWithMyValue:100];
 	NSLog(@"Post : %@", note);
-	
-	[note postNotification];
+
+	[nc postESNotification:note];
 }
 
 @end

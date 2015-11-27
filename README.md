@@ -134,23 +134,31 @@ NSNotificationCenter.defaultCenter().postNotification(notification)
 
 # Usage in Objective-C
 
-## Observing
+### Define Native Notifications
 
-You can observe `Native Notification` in Objective-C.
-
-If you want to observe Native Notifications, previously you must your notification class inherit NativeNotificationObject.
+In Swift, if you want to post a Native Notification in Objective-C, You must your notification class conforms to `Notification` protocol and export to Objective-C by inheriting `NSObject` class.
 
 ```swift
-final class MyNativeNotification : NativeNotificationObject {
+class MyNativeNotification : NSObject, Notification {
 }
 ```
 
-Then you observe Notifications that have the Notification name by NSNotificationCenter, you can handle the notification.
+In Objective-C, you must your notification class conforms to `ESNotification` protocol.
+
+```Objective-C
+@interface MyNativeNotification : NSObject <ESNotification>
+
+@end
+```
+
+## Observing
+
+You can observe **Native Notification** in Objective-C. To observing a Native Notification, you use `- addObserver:selector:ESNotification:object;` method implemented in `NSNotificationCenter`.
 
 ```objc
 	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
 
-	[nc addObserver:self selector:@selector(myNativeNotificationReceived:) name:MyNativeNotification.notificationIdentifier object:nil];
+	[nc addObserver:self selector:@selector(myNativeNotificationReceived:) ESNotification:[MyNativeNotification class] object:nil];
 ```
 
 When a Native notification received by NSNotificationCenter, the Native Notification instance set to `object` property of NSNotification passed by parameter.
@@ -165,17 +173,13 @@ When a Native notification received by NSNotificationCenter, the Native Notifica
 
 ## Post a Native Notification
 
-If you want to post a Native Notification in Objective-C, You must inherit your notification class from `NativeNotificationObject` class in Swift.
-
-```swift
-final class MyNativeNotification : NativeNotificationObject {	
-}
-```
-
-Then, you call the method when you want to post the Native Notification.
+You call the method when you want to post a **Native Notification**.
 
 ```Objective-C
-[[[MyNativeNotification alloc] init] postNotification];
+NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
+MyNativeNotification* notification = [[MyNativeNotification alloc] init];
+
+[notificationCenter postESNotification:notification];
 ```
 
 # Installation

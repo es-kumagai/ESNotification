@@ -8,6 +8,7 @@
 
 import Foundation
 
+@objc(ESNotificationPostable)
 public protocol Postable : NotificationProtocol {
 	
 }

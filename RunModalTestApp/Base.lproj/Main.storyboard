@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -159,7 +159,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PzC-uR-GTC">
-                                <rect key="frame" x="20" y="95" width="442" height="42"/>
+                                <rect key="frame" x="20" y="60" width="442" height="42"/>
                                 <animations/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Try checking whether the app hangup when open modal window from Menu (⌘N) and close it." id="LWo-Va-lLg">
                                     <font key="font" metaFont="system"/>
@@ -167,6 +167,17 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bB-hk-sQ4">
+                                <rect key="frame" x="14" y="123" width="243" height="32"/>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Post Notifications By Objective-C" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vb0-mc-JsS">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sendNotificationByObjC:" target="XfG-lQ-9wD" id="bgK-vB-2Jm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                     </view>

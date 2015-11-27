@@ -36,6 +36,8 @@
 		B14B4E521BCF25FA007D5DE6 /* NotificationPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14B4E501BCF25FA007D5DE6 /* NotificationPost.swift */; };
 		B14B4E541BCF2605007D5DE6 /* NotificationObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14B4E531BCF2605007D5DE6 /* NotificationObserve.swift */; };
 		B14B4E551BCF2605007D5DE6 /* NotificationObserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14B4E531BCF2605007D5DE6 /* NotificationObserve.swift */; };
+		B15B63581C07F7450091A49E /* ESNotificationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B15B63571C07F7450091A49E /* ESNotificationTest.m */; };
+		B15B635B1C07FCF00091A49E /* ESSampleObjCNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = B15B635A1C07FCF00091A49E /* ESSampleObjCNotification.m */; };
 		B17475A31B6CD4DE00A86785 /* ESNotification_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B17475A21B6CD4DE00A86785 /* ESNotification_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B17475AA1B6CD4DE00A86785 /* ESNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B17475A01B6CD4DE00A86785 /* ESNotification.framework */; };
 		B17475BF1B6CD4EB00A86785 /* ESNotification_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = B17475BE1B6CD4EB00A86785 /* ESNotification_OSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -161,6 +163,11 @@
 		B142EB451BC80F9800EF9A98 /* NotificationBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationBox.swift; sourceTree = "<group>"; };
 		B14B4E501BCF25FA007D5DE6 /* NotificationPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPost.swift; sourceTree = "<group>"; };
 		B14B4E531BCF2605007D5DE6 /* NotificationObserve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationObserve.swift; sourceTree = "<group>"; };
+		B15B63551C07F7440091A49E /* RunModalTestApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RunModalTestApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		B15B63561C07F7450091A49E /* ESNotificationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESNotificationTest.h; sourceTree = "<group>"; };
+		B15B63571C07F7450091A49E /* ESNotificationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESNotificationTest.m; sourceTree = "<group>"; };
+		B15B63591C07FCF00091A49E /* ESSampleObjCNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESSampleObjCNotification.h; sourceTree = "<group>"; };
+		B15B635A1C07FCF00091A49E /* ESSampleObjCNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESSampleObjCNotification.m; sourceTree = "<group>"; };
 		B17475A01B6CD4DE00A86785 /* ESNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ESNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B17475A21B6CD4DE00A86785 /* ESNotification_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESNotification_iOS.h; sourceTree = "<group>"; };
 		B17475A41B6CD4DE00A86785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -314,9 +321,14 @@
 				B12BA07F1B7BE504001F8080 /* ModalViewController.swift */,
 				B12BA0831B7BEB2F001F8080 /* ModalWindow.swift */,
 				B12BA0811B7BE587001F8080 /* Notification.swift */,
+				B15B63561C07F7450091A49E /* ESNotificationTest.h */,
+				B15B63571C07F7450091A49E /* ESNotificationTest.m */,
+				B15B63591C07FCF00091A49E /* ESSampleObjCNotification.h */,
+				B15B635A1C07FCF00091A49E /* ESSampleObjCNotification.m */,
 				B12BA06A1B7BE0DD001F8080 /* Assets.xcassets */,
 				B12BA06C1B7BE0DD001F8080 /* Main.storyboard */,
 				B12BA06F1B7BE0DD001F8080 /* Info.plist */,
+				B15B63551C07F7440091A49E /* RunModalTestApp-Bridging-Header.h */,
 			);
 			path = RunModalTestApp;
 			sourceTree = "<group>";
@@ -573,7 +585,7 @@
 		B174755C1B6CD4A500A86785 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "EasyStyle G.K.";
 				TargetAttributes = {
@@ -932,7 +944,9 @@
 				B12BA0821B7BE587001F8080 /* Notification.swift in Sources */,
 				B12BA0691B7BE0DD001F8080 /* ViewController.swift in Sources */,
 				B12BA0841B7BEB2F001F8080 /* ModalWindow.swift in Sources */,
+				B15B635B1C07FCF00091A49E /* ESSampleObjCNotification.m in Sources */,
 				B12BA0671B7BE0DD001F8080 /* AppDelegate.swift in Sources */,
+				B15B63581C07F7450091A49E /* ESNotificationTest.m in Sources */,
 				B12BA0761B7BE1BE001F8080 /* ModalWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1078,6 +1092,7 @@
 			baseConfigurationReference = 0E75ADA5C13DF748C994DCA4 /* Pods-RunModalTestApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = RunModalTestApp/Info.plist;
@@ -1085,6 +1100,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.ez-style.appid.RunModalTestApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "RunModalTestApp/RunModalTestApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1093,6 +1110,7 @@
 			baseConfigurationReference = 9ED0AC1A97F60B8A36918B54 /* Pods-RunModalTestApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = RunModalTestApp/Info.plist;
@@ -1100,6 +1118,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.ez-style.appid.RunModalTestApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "RunModalTestApp/RunModalTestApp-Bridging-Header.h";
 			};
 			name = Release;
 		};

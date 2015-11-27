@@ -9,12 +9,12 @@
 import Foundation
 import ESNotification
 
-final class MyNativeNotification : NativeNotificationObject {
+final class MyNativeNotification : NSObject, Notification {
 
 	var myValue:Int
 	
 	init(myValue:Int) {
-		
+
 		self.myValue = myValue
 		
 		super.init()

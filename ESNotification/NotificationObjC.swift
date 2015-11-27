@@ -8,12 +8,15 @@
 
 import Foundation
 
-public class NativeNotificationObject : NSObject, Notification {
+extension NSNotificationCenter {
 	
-	public static let name = NativeNotificationObject.notificationIdentifier
+	public func addObserver(observer: AnyObject, selector aSelector: Selector, ESNotification notification: NotificationProtocol.Type, object: AnyObject?) {
+
+		self.addObserver(observer, selector: aSelector, name: notification.notificationIdentifier, object: object)
+	}
 	
-	public func postNotification() {
+	public func postESNotification(notification:Postable) {
 		
-		self.post()
+		notification.post()
 	}
 }

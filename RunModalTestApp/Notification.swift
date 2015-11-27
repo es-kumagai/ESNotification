@@ -12,3 +12,8 @@ import ESNotification
 final class SampleNotification : Notification {
 	
 }
+
+final class ESSampleSwiftNotification : NSObject, Notification {
+	
+	var swift: Int = 10
+}
