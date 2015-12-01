@@ -54,13 +54,15 @@ public class NotificationManager {
 	
 	private var _notificationDam = [NotificationBox]()
 	
-	public struct HandlerID : Equatable {
+	public struct HandlerID : Hashable {
 		
-		public var value:UInt16
+		internal var value:Int
+		internal weak var handlerManager: NotificationHandlers?
 		
-		init(_ value:UInt16) {
+		init(_ value:Int, handlerManager: NotificationHandlers?) {
 			
 			self.value = value
+			self.handlerManager = handlerManager
 		}
 		
 		mutating func increment() {
@@ -68,15 +70,32 @@ public class NotificationManager {
 			++self.value
 		}
 		
+		public var hashValue: Int {
+			
+			return Int(self.value)
+		}
+		
 		/// Release observing handler by HandlerID
 		public func release() {
 			
-			_notificationManager.release(self)
+			if let handlerManager = self.handlerManager {
+				
+				try! handlerManager.releaseHandler(self)
+			}
+			else {
+
+				_notificationManager.releaseObservingHandlers([self])
+			}
+		}
+		
+		func containsInHandler(handler: _NotificationObservingHandler) -> Bool {
+			
+			return handler.handlerID == self
 		}
 	}
 	
 	/// Native notifications that the manager managed.
-	private var _notificationHandlers = ContiguousArray<_NotificationHandler>()
+	private var _notificationObservingHandlers = Array<_NotificationObservingHandler>()
 	
 	/// Notification observer for Raw notifications.
 	private var _rawNotificationObserver:_NotificationObserver!
@@ -97,10 +116,17 @@ public class NotificationManager {
 		
 		self._notificationCenter.removeObserver(self._rawNotificationObserver)
 	}
-
+	
 	/// Observe an named notification. When the named notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	public func observe<OBSERVER:AnyObject>(observer:OBSERVER, notificationName:String, handler:(NamedNotification)->Void) -> HandlerID {
+	@warn_unused_result
+	public func observe(notificationName:String, handler:(NamedNotification)->Void) -> HandlerID {
+		
+		return self.observe(notificationName, handler: handler, handlerManager: nil)
+	}
+	
+	@warn_unused_result
+	internal func observe(notificationName:String, handler:(NamedNotification)->Void, handlerManager:NotificationHandlers?) -> HandlerID {
 		
 		let _handler = { (notification: NotificationProtocol) -> Void in
 			
@@ -114,9 +140,10 @@ public class NotificationManager {
 		
 		return invokeOnProcessingQueueSynchronously {
 			
-			let handler = _NotificationHandler(observer, target:NamedNotification.self, targetName: notificationName, handler: _handler)
+			let handler = _NotificationObservingHandler(NamedNotification.self, targetName: notificationName, handler: _handler, handlerManager: handlerManager)
 			
-			self._notificationHandlers.append(handler)
+			self._notificationObservingHandlers.append(handler)
+			try! handlerManager?._addHandlerID(handler.handlerID)
 			
 			return handler.handlerID
 		}
@@ -124,13 +151,21 @@ public class NotificationManager {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	public func observe<OBSERVER:AnyObject, T:NotificationProtocol>(observer:OBSERVER, notification:T.Type, handler:(T)->Void) -> HandlerID {
+	@warn_unused_result
+	public func observe<T:NotificationProtocol>(notification:T.Type, handler:(T)->Void) -> HandlerID {
 		
-		return self.observe(observer, handler: handler)
+		return self.observe(handler, handlerManager: nil)
 	}
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	public func observe<OBSERVER:AnyObject, T:NotificationProtocol>(observer:OBSERVER, handler:(T)->Void) -> HandlerID {
+	@warn_unused_result
+	public func observe<T:NotificationProtocol>(handler:(T)->Void) -> HandlerID {
+	
+		return self.observe(handler, handlerManager: nil)
+	}
+	
+	@warn_unused_result
+	public func observe<T:NotificationProtocol>(handler:(T)->Void, handlerManager: NotificationHandlers?) -> HandlerID {
 
 		let _getNotification:(NotificationProtocol)->T = {
 			
@@ -151,76 +186,54 @@ public class NotificationManager {
 		
 		return invokeOnProcessingQueueSynchronously {
 
-			let handler = _NotificationHandler(observer, target:T.self, targetName: nil, handler: _handler)
+			let handler = _NotificationObservingHandler(T.self, targetName: nil, handler: _handler, handlerManager: handlerManager)
 			
-			self._notificationHandlers.append(handler)
-			
+			self._notificationObservingHandlers.append(handler)
+			try! handlerManager?._addHandlerID(handler.handlerID)
+
 			return handler.handlerID
 		}
 	}
 
 	/// Release all observing handler for the `target`.
-	public static func release(observer target:AnyObject) {
+	public static func releaseObservingHandler(handlerIDs:HandlerID...) {
 	
-		_notificationManager.release(observer: target)
+		_notificationManager.releaseObservingHandlers(Set(handlerIDs))
 	}
 	
 	/// Release all observing handler for the `target`.
-	public func release(observer target:AnyObject) {
+	public static func releaseObservingHandlers(handlerIDs:Set<HandlerID>) {
+		
+		_notificationManager.releaseObservingHandlers(Set(handlerIDs))
+	}
+	
+	/// Release all observing handler for the `target`.
+	public func releaseObservingHandlers(handlerIDs:Set<HandlerID>) {
 
 		// Invoke `release` synchronously.
 		invokeOnProcessingQueueSynchronously {
 
-			self._release(observer: target)
+			self._releaseObservingHandlers(handlerIDs)
 		}
 	}
 
 	/// Release all observing handler for the `target`.
-	func _release(observer target:AnyObject) {
-		
-		let targetIndexes = self._notificationHandlers.indexesOf {
+	func _releaseObservingHandlers(targetHandlerIDs: Set<HandlerID>) {
+
+		let indexOfObservingHandlersByTargetHandlerID: (HandlerID) -> Int? = { targetHandlerID in
 			
-			if let observer:AnyObject = $0.observer {
-				
-				return observer === target
-			}
-			else {
-				
-				return false
-			}
+			self._notificationObservingHandlers.indexOf { observingHandler in targetHandlerID.containsInHandler(observingHandler) }
 		}
 		
-		self._notificationHandlers.remove(targetIndexes)
-	}
+		let targetHandlerIndexes: () -> [Int] = {
 
-	/// Release observing handler by HandlerID
-	public static func release(handlerID:HandlerID) {
-		
-		_notificationManager.release(handlerID)
-	}
-	
-	/// Release observing handler by HandlerID
-	public func release(handlerID:HandlerID) {
-		
-		// Invoke `release` synchronously.
-		invokeOnProcessingQueueSynchronously {
-		
-			self._release(handlerID)
+			targetHandlerIDs.flatMap(indexOfObservingHandlersByTargetHandlerID)
 		}
-	}
 
-	/// Release observing handler by HandlerID
-	func _release(handlerID:HandlerID) {
-
-		let index = self._notificationHandlers.indexOf {
+		for index in targetHandlerIndexes().sort(>) {
 			
-			$0.handlerID == handlerID
+			self._notificationObservingHandlers.removeAtIndex(index)
 		}
-		
-        if let index = index {
-
-            self._notificationHandlers.removeAtIndex(index)
-        }
 	}
 }
 
@@ -258,9 +271,7 @@ extension NotificationManager {
 	
 	private func _received(notification:NotificationProtocol) {
 		
-		self._removeUnownedNotificationHandlers()
-		
-		self._notificationHandlers.forEach {
+		self._notificationObservingHandlers.forEach {
 			
 			$0.invoke(notification)
 		}
@@ -268,7 +279,7 @@ extension NotificationManager {
 
 	private func _received(rawNotification:NSNotification) {
 		
-		let targetNotificationNames = self._notificationHandlers.flatMap { $0.targetName }
+		let targetNotificationNames = self._notificationObservingHandlers.flatMap { $0.targetName }
 		
 		guard targetNotificationNames.contains(rawNotification.name) else {
 		
@@ -325,17 +336,15 @@ extension NotificationManager {
 			self._notificationDam.removeAll()
 		}
 	}
+}
 
-	/// Remove notification handlers that the observer was released.
-	func _removeUnownedNotificationHandlers() {
+extension _NotificationObservingHandler : Equatable {
 	
-		let releasedIndexes = self._notificationHandlers.indexesOf {
-			
-			$0.isObserverReleased
-		}
-		
-		self._notificationHandlers.remove(releasedIndexes)
-	}
+}
+
+func == (lhs: _NotificationObservingHandler, rhs: _NotificationObservingHandler) -> Bool {
+	
+	return lhs.handlerID == rhs.handlerID
 }
 
 // MARK: - Internal Container
@@ -350,51 +359,37 @@ func ~= (pattern:NotificationProtocol.Type, value:NotificationProtocol.Type) -> 
 }
 
 /// Notification Handler Wrapper.
-class _NotificationHandler {
+final class _NotificationObservingHandler {
 
-	private static var _lastHandlerID = NotificationManager.HandlerID(0)
+	typealias Handler = NotificationHandlers.Handler
+	
+	private static var _lastHandlerID = Int.min
 	
 	private(set) var handlerID:NotificationManager.HandlerID
 	private(set) var target:NotificationProtocol.Type
 	private(set) var targetName:String?
-	private(set) var handler:(NotificationProtocol)->Void
-	private(set) weak var observer:AnyObject?
+	private(set) var handler:Handler
 	
-	init(_ observer:AnyObject, target:NotificationProtocol.Type, targetName:String?, handler:(NotificationProtocol)->Void) {
+	init(_ target:NotificationProtocol.Type, targetName:String?, handler:Handler, handlerManager: NotificationHandlers?) {
 		
-		self.handlerID = _NotificationHandler._getNextHandlerID()
-		self.observer = observer
+		self.handlerID = _NotificationObservingHandler._getNextHandlerID(handlerManager)
 		self.target = target
 		self.targetName = targetName
 		self.handler = handler
 	}
 	
-	private static func _getNextHandlerID() -> NotificationManager.HandlerID {
+	private static func _getNextHandlerID(handlerManager: NotificationHandlers?) -> NotificationManager.HandlerID {
 		
-		self._lastHandlerID.increment()
-		
-		return self._lastHandlerID
-	}
-	
-	/// Returns a boolean value whether the observer is already released.
-	var isObserverReleased:Bool {
-		
-		return self.observer == nil
+		return NotificationManager.HandlerID(self._lastHandlerID++, handlerManager: handlerManager)
 	}
 	
 	/// Invoke notification handler. If the `notification` type is not same type as self.target, do nothing.
 	func invoke(notification:NotificationProtocol) {
 
-		// Keep self.observer until finished invoke handler.
-		guard let observer = self.observer else {
-			
-			return
-		}
-
 		switch self.target {
 			
 		case notification.dynamicType, AnyNotification.self:
-			self._invokeHandlerOnMainThread(observer, notification)
+			self._invokeHandlerOnMainThread(notification)
 			
 		default:
 			break
@@ -402,17 +397,11 @@ class _NotificationHandler {
 	}
 
 	/// Invoke notification handler on main thread asynchronously.
-	func _invokeHandlerOnMainThread(observer: AnyObject, _ notification:NotificationProtocol) {
+	func _invokeHandlerOnMainThread(notification:NotificationProtocol) {
 		
-		func _invoke(observer: AnyObject, _ notification:NotificationProtocol) {
-			
-			self.handler(notification)
-		}
-
 		invokeAsyncOnMainQueue {
 			
-			/// keep `observer` until finish invoking on main thread.
-			_invoke(observer, notification)
+			self.handler(notification)
 		}
 	}
 }
@@ -420,7 +409,7 @@ class _NotificationHandler {
 // MARK: - Internal Observer
 
 /// Observe raw notifications.
-class _NotificationObserver : NSObject {
+final class _NotificationObserver : NSObject {
 
 	private unowned var _manager:NotificationManager
 	

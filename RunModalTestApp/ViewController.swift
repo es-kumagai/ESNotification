@@ -11,6 +11,8 @@ import ESNotification
 
 class ViewController: NSViewController, NotificationObservable {
 
+	var notificationHandlers = NotificationHandlers()
+	
 	static let NamedTestANotification = "ESNotification.NamedNotificationForTestA"
 	static let NamedTestBNotification = "ESNotification.NamedNotificationForTestB"
 	

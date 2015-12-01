@@ -8,11 +8,23 @@
 
 import Cocoa
 
-class ModalViewController: NSViewController {
+class ModalViewController: NSViewController, NotificationObservable {
 
+	var notificationHandlers = NotificationHandlers()
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+		
+		self.observeNotification(ESSampleSwiftNotification.self) { notification in
+			
+			print("Received by Modal View Controller : \(notification)")
+		}
+		
+		self.observeNotification(ESSampleObjCNotification.self) { notification in
+			
+			print("Received by Modal View Controller : \(notification)")
+		}
     }
 	
 	override func dismissController(sender: AnyObject?) {

@@ -37,6 +37,8 @@ First, an object which observe some notifications need to conforms to `Notificat
 ```swift
 extension ViewController : NotificationObservable {
 
+	var notificationHandlers = NotificationHandlers()
+	
 }
 ```
 
@@ -80,7 +82,7 @@ self.observeNotificationNamed(NSApplicationWillTerminateNotification) { [unowned
 You can observe a Notification using `observeBy:handler:` method privided by a type conforms to `Notification` protocol.
 
 ```swift
-MyNativeNotification.observeBy(self) { [unowned self] notification -> Void in
+let handlerID = MyNativeNotification.observe { [unowned self] notification -> Void in
 
 	...
 }
@@ -93,7 +95,7 @@ MyNativeNotification.observeBy(self) { [unowned self] notification -> Void in
 You can observe a Named Notification easily by using `observe:by:handler:` method. If same name of named notification posted, you can handle it.
 
 ```swift
-NamedNotification.observe(name, by: self) { [unowned self] notification in
+let handlerID = NamedNotification.observe(name) { [unowned self] notification in
 			
 	...
 }
@@ -108,7 +110,7 @@ When a notification of `Notification` Type posted, the `handler` closure is call
 At this time, the posted notification passed to parameter of `handler`. The notification can use as Handled Notification type own.
 
 > If observer released, the observing handler is released too.
-> When you want to release implicitly, save `HandlerID` returns by `observe` function, and call `releaseHandler` function with the Handler ID.
+> When you want to release implicitly, save `HandlerID` returns by `observe` function, and call `release` method of the Handler ID.
 
 ## Post a Notification
 
@@ -156,9 +158,9 @@ In Objective-C, you must your notification class conforms to `ESNotification` pr
 You can observe **Native Notification** in Objective-C. To observing a Native Notification, you use `- addObserver:selector:ESNotification:object;` method implemented in `NSNotificationCenter`.
 
 ```objc
-	NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
 
-	[nc addObserver:self selector:@selector(myNativeNotificationReceived:) ESNotification:[MyNativeNotification class] object:nil];
+[nc addObserver:self selector:@selector(myNativeNotificationReceived:) ESNotification:[MyNativeNotification class] object:nil];
 ```
 
 When a Native notification received by NSNotificationCenter, the Native Notification instance set to `object` property of NSNotification passed by parameter.

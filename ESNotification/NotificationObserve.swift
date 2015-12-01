@@ -11,17 +11,19 @@ import Foundation
 extension Notification {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	public static func observeBy<OBSERVER:AnyObject>(observer:OBSERVER, handler:(Self)->Void) -> NotificationManager.HandlerID {
+	@warn_unused_result
+	public static func observe(handler:(Self)->Void) -> NotificationManager.HandlerID {
 		
-		return _notificationManager.observe(observer, handler: handler)
+		return _notificationManager.observe(handler)
 	}
 }
 
 extension NamedNotification {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	public static func observe<OBSERVER:AnyObject>(name:String, by observer:OBSERVER, handler:(NamedNotification)->Void) -> NotificationManager.HandlerID {
+	@warn_unused_result
+	public static func observe(name:String, handler:(NamedNotification)->Void) -> NotificationManager.HandlerID {
 		
-		return _notificationManager.observe(observer, notificationName: name, handler: handler)
+		return _notificationManager.observe(name, handler: handler)
 	}
 }

@@ -64,3 +64,9 @@ public func invokeOnProcessingQueueSynchronously<R>(predicate:()->R) -> R {
 	
 	return invoke(_processingQueue, predicate: predicate)
 }
+
+/// Invoke `predicate` synchronously on the thread for Notification processing.
+public func invokeOnProcessingQueueSynchronously<R>(predicate:() throws -> R) throws -> R {
+	
+	return try invoke(_processingQueue, predicate: predicate)
+}
