@@ -15,15 +15,15 @@ public func post<T:Notification>(notification:T) {}
 /// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 /// The argument `notification` is used to help type inference.
 @available(*, unavailable, message="access the 'observeBy' method on the Notification")
-@noreturn public func observe<OWNER:AnyObject, T:Notification>(owner:OWNER, _ notification:T.Type, handler:(OWNER,T)->Void) -> NotificationManager.HandlerID {}
+@noreturn public func observe<OWNER:AnyObject, T:Notification>(owner:OWNER, _ notification:T.Type, handler:(OWNER,T)->Void) -> HandlerID {}
 
 /// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 @available(*, unavailable, message="access the 'observeBy' method on the Notification")
-@noreturn public func observe<OWNER:AnyObject, T:Notification>(owner:OWNER, handler:(OWNER,T)->Void) -> NotificationManager.HandlerID {}
+@noreturn public func observe<OWNER:AnyObject, T:Notification>(owner:OWNER, handler:(OWNER,T)->Void) -> HandlerID {}
 
 /// Release observing handler by HandlerID
 @available(*, unavailable, message="access the 'release' method on the NotificationManager.HandlerID")
-public func releaseHandler(handlerID:NotificationManager.HandlerID) {}
+public func releaseHandler(handlerID:HandlerID) {}
 
 // MARK: - Raw Support
 

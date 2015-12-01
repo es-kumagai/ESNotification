@@ -15,7 +15,7 @@ import ESThread
 /// Current notification manager.
 let _notificationManager = NotificationManager()
 
-public func == (lhs:NotificationManager.HandlerID, rhs:NotificationManager.HandlerID) -> Bool {
+public func == (lhs:HandlerID, rhs:HandlerID) -> Bool {
 
 	return lhs.value == rhs.value
 }
@@ -53,47 +53,7 @@ public class NotificationManager {
 	}
 	
 	private var _notificationDam = [NotificationBox]()
-	
-	public struct HandlerID : Hashable {
 		
-		internal var value:Int
-		internal weak var handlerManager: NotificationHandlers?
-		
-		init(_ value:Int, handlerManager: NotificationHandlers?) {
-			
-			self.value = value
-			self.handlerManager = handlerManager
-		}
-		
-		mutating func increment() {
-
-			++self.value
-		}
-		
-		public var hashValue: Int {
-			
-			return Int(self.value)
-		}
-		
-		/// Release observing handler by HandlerID
-		public func release() {
-			
-			if let handlerManager = self.handlerManager {
-				
-				try! handlerManager.releaseHandler(self)
-			}
-			else {
-
-				_notificationManager.releaseObservingHandlers([self])
-			}
-		}
-		
-		func containsInHandler(handler: _NotificationObservingHandler) -> Bool {
-			
-			return handler.handlerID == self
-		}
-	}
-	
 	/// Native notifications that the manager managed.
 	private var _notificationObservingHandlers = Array<_NotificationObservingHandler>()
 	
@@ -361,16 +321,16 @@ func ~= (pattern:NotificationProtocol.Type, value:NotificationProtocol.Type) -> 
 /// Notification Handler Wrapper.
 final class _NotificationObservingHandler {
 
-	typealias Handler = NotificationHandlers.Handler
-	
+	typealias NotificationHandler = (NotificationProtocol) -> Void
+
 	private static var _lastHandlerID = Int.min
 	
-	private(set) var handlerID:NotificationManager.HandlerID
+	private(set) var handlerID:HandlerID
 	private(set) var target:NotificationProtocol.Type
 	private(set) var targetName:String?
-	private(set) var handler:Handler
+	private(set) var handler:NotificationHandler
 	
-	init(_ target:NotificationProtocol.Type, targetName:String?, handler:Handler, handlerManager: NotificationHandlers?) {
+	init(_ target:NotificationProtocol.Type, targetName:String?, handler:NotificationHandler, handlerManager: NotificationHandlers?) {
 		
 		self.handlerID = _NotificationObservingHandler._getNextHandlerID(handlerManager)
 		self.target = target
@@ -378,9 +338,9 @@ final class _NotificationObservingHandler {
 		self.handler = handler
 	}
 	
-	private static func _getNextHandlerID(handlerManager: NotificationHandlers?) -> NotificationManager.HandlerID {
+	private static func _getNextHandlerID(handlerManager: NotificationHandlers?) -> HandlerID {
 		
-		return NotificationManager.HandlerID(self._lastHandlerID++, handlerManager: handlerManager)
+		return HandlerID(self._lastHandlerID++, handlerManager: handlerManager)
 	}
 	
 	/// Invoke notification handler. If the `notification` type is not same type as self.target, do nothing.

@@ -17,9 +17,6 @@ public final class NotificationHandlers {
 		case HandleIDIsAlreadyExists(handlerID: HandlerID)
 	}
 
-	public typealias Handler = (NotificationProtocol) -> Void
-	public typealias HandlerID = NotificationManager.HandlerID
-	
 	typealias _HandlerIDs = Set<HandlerID>
 	
 	private var _handlerIDs: _HandlerIDs

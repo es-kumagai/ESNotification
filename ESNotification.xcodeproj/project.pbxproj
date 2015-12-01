@@ -60,6 +60,8 @@
 		B1A6170C1C0BF0D30018D2BA /* NotificationHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A6170A1C0BF0D30018D2BA /* NotificationHandlers.swift */; };
 		B1A9DADB1C019BA800A895E5 /* NotificationObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A9DADA1C019BA800A895E5 /* NotificationObservable.swift */; };
 		B1A9DADC1C019BA800A895E5 /* NotificationObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A9DADA1C019BA800A895E5 /* NotificationObservable.swift */; };
+		B1BB8BF41C0DCD9C0071D415 /* HandlerID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BB8BF31C0DCD9C0071D415 /* HandlerID.swift */; };
+		B1BB8BF51C0DCD9C0071D415 /* HandlerID.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BB8BF31C0DCD9C0071D415 /* HandlerID.swift */; };
 		B1F2FE6B1BCF30AD00DE716D /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */; };
 		B1F2FE6C1BCF30AD00DE716D /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */; };
 		B1F2FE711BCF396A00DE716D /* NotificationObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F2FE701BCF396A00DE716D /* NotificationObjC.swift */; };
@@ -191,6 +193,7 @@
 		B17475F81B6CE16100A86785 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B1A6170A1C0BF0D30018D2BA /* NotificationHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHandlers.swift; sourceTree = "<group>"; };
 		B1A9DADA1C019BA800A895E5 /* NotificationObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationObservable.swift; sourceTree = "<group>"; };
+		B1BB8BF31C0DCD9C0071D415 /* HandlerID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandlerID.swift; sourceTree = "<group>"; };
 		B1E89A791B745F310062E12E /* ESNotification.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ESNotification.podspec; sourceTree = "<group>"; };
 		B1E89A7A1B745F5F0062E12E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B1F2FE6A1BCF30AD00DE716D /* Deprecated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deprecated.swift; sourceTree = "<group>"; };
@@ -375,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				B17475E01B6CE0D500A86785 /* Notification.swift */,
+				B1BB8BF31C0DCD9C0071D415 /* HandlerID.swift */,
 				B1F2FE701BCF396A00DE716D /* NotificationObjC.swift */,
 				B14B4E501BCF25FA007D5DE6 /* NotificationPost.swift */,
 				B14B4E531BCF2605007D5DE6 /* NotificationObserve.swift */,
@@ -966,6 +970,7 @@
 				B17475EE1B6CE0D500A86785 /* NamedNotification.swift in Sources */,
 				B17475F21B6CE0D500A86785 /* RawNotificationConvertible.swift in Sources */,
 				B1F2FE6B1BCF30AD00DE716D /* Deprecated.swift in Sources */,
+				B1BB8BF41C0DCD9C0071D415 /* HandlerID.swift in Sources */,
 				B1A6170B1C0BF0D30018D2BA /* NotificationHandlers.swift in Sources */,
 				B12BA0881B7C072E001F8080 /* NotificationControl_iOS.swift in Sources */,
 				B17475F01B6CE0D500A86785 /* AnyNotification.swift in Sources */,
@@ -995,6 +1000,7 @@
 				B17475EF1B6CE0D500A86785 /* NamedNotification.swift in Sources */,
 				B17475F31B6CE0D500A86785 /* RawNotificationConvertible.swift in Sources */,
 				B1F2FE6C1BCF30AD00DE716D /* Deprecated.swift in Sources */,
+				B1BB8BF51C0DCD9C0071D415 /* HandlerID.swift in Sources */,
 				B1A6170C1C0BF0D30018D2BA /* NotificationHandlers.swift in Sources */,
 				B12BA0861B7C0723001F8080 /* NotificationControl_OSX.swift in Sources */,
 				B17475F11B6CE0D500A86785 /* AnyNotification.swift in Sources */,
