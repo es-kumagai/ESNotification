@@ -35,7 +35,7 @@ final class MyNativeNotification : Notification {
 First, an object which observe some notifications need to conforms to `NotificationObservable ` protocol.
 
 ```swift
-extension ViewController : NotificationObservable {
+class ViewController : NotificationObservable {
 
 	var notificationHandlers = NotificationHandlers()
 	
