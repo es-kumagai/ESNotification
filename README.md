@@ -6,6 +6,14 @@ It is a swift module that powerfully notification management system using type-s
 
 This module written in Swift 2.0 and the module supports Objective-C.
 
+# Installation
+
+ESNotification can install using CocoaPods.
+
+```podfile
+pod 'ESNotification'
+```
+
 # Usage in Swift
 
 ## Definition
@@ -28,7 +36,7 @@ final class MyNativeNotification : Notification {
 }
 ```
 
-## Observe using NotificationObservable object features
+## Observe using NotificationObservable
 
 ### Preparation
 
@@ -75,7 +83,28 @@ self.observeNotificationNamed(NSApplicationWillTerminateNotification) { [unowned
 
 > Type of `notification` argument is `NamedNotification` type.
 
-## Observe using Notification type features
+### Release Notification Handlers
+
+When you want to release implicitly, save `HandlerID` returns by `observeNotification` method, and call `release` method of the Handler ID.
+
+```swift
+let handleID = self.observeNotificationNamed(NSApplicationWillTerminateNotification) { [unowned self] notification in
+	
+	...
+}
+```
+
+```swift
+handleID.release()
+```
+
+If you want to all notification handlers which observe by `self`, you can release all notifications using `releaseAllObservingNotifications` method.
+
+```swift
+self.releaseAllObservingNotifications`
+```
+
+## Observe using Notification Type
 
 ### Native Notification
 
@@ -103,14 +132,20 @@ let handlerID = NamedNotification.observe(name) { [unowned self] notification in
 
 > NSNotification can be handle in the same way.
 
-## Note for Observing
+### Release Notification Handlers
+
+You invoke `observe` method in Notification Type, you must release the Handler manually.
+
+```swift
+handleID.release()
+```
+
+## Always Handling on Main Thread
 
 When a notification of `Notification` Type posted, the `handler` closure is called on main thread.
 
-At this time, the posted notification passed to parameter of `handler`. The notification can use as Handled Notification type own.
+At this time, the posted notification passed to parameter of `handler` function. The notification can use as Handled Notification type own.
 
-> If observer released, the observing handler is released too.
-> When you want to release implicitly, save `HandlerID` returns by `observe` function, and call `release` method of the Handler ID.
 
 ## Post a Notification
 
@@ -182,14 +217,4 @@ NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
 MyNativeNotification* notification = [[MyNativeNotification alloc] init];
 
 [notificationCenter postESNotification:notification];
-```
-
-# Installation
-
-ESNotification can install using CocoaPods.
-
-```podfile
-use_frameworks!
-
-pod 'ESNotification'
 ```
