@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "8.0"
   s.osx.deployment_target = "10.9"
 
-  s.source       = { :git => "https://github.com/EZ-NET/ESNotification.git" }
+  s.source       = { :git => "https://github.com/EZ-NET/ESNotification.git", :tag => s.version }
   s.source_files  = "ESNotification/**/*.swift"
   s.ios.source_files  = "ESNotification_iOS/**/*.swift"
   s.osx.source_files  = "ESNotification_OSX/**/*.swift"
