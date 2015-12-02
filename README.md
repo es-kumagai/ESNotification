@@ -85,7 +85,13 @@ self.observeNotificationNamed(NSApplicationWillTerminateNotification) { [unowned
 
 ### Release Notification Handlers
 
-When you want to release implicitly, save `HandlerID` returns by `observeNotification` method, and call `release` method of the Handler ID.
+If you want to all notification handlers which observe by `self`, you can release all notifications using `releaseAllObservingNotifications` method.
+
+```swift
+self.releaseAllObservingNotifications
+```
+
+When you want to release a Notification Handler implicitly, save `HandlerID` returns by `observeNotification` method, and call `release` method of the Handler ID.
 
 ```swift
 let handleID = self.observeNotificationNamed(NSApplicationWillTerminateNotification) { [unowned self] notification in
@@ -96,12 +102,6 @@ let handleID = self.observeNotificationNamed(NSApplicationWillTerminateNotificat
 
 ```swift
 handleID.release()
-```
-
-If you want to all notification handlers which observe by `self`, you can release all notifications using `releaseAllObservingNotifications` method.
-
-```swift
-self.releaseAllObservingNotifications`
 ```
 
 ## Observe using Notification Type
