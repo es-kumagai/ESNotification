@@ -1,19 +1,18 @@
-source 'https://github.com/EZ-NET/PodSpecs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 use_frameworks!
 
 def pods
 	
-	pod 'Swim', '~> 1.4.0'
-	pod 'ESThread', :git => 'https://github.com/EZ-NET/ESThread.git', :branch => 'master'
+	pod 'Swim', '~> 1.4.1-beta2'
+	pod 'ESThread','~> 0.1.1'
 	
 end
 
 def pods_test
 	
 	pods
-	pod 'ESTestKit', '~> 0.3.2'
+	pod 'ESTestKit', '~> 0.3.3-beta1'
 	
 end
 
