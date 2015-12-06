@@ -79,13 +79,13 @@ public class NotificationManager {
 	
 	/// Observe an named notification. When the named notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	@warn_unused_result
+	@warn_unused_result(message="Need to keep while using and release after use.")
 	public func observe(notificationName:String, handler:(NamedNotification)->Void) -> HandlerID {
 		
 		return self.observe(notificationName, handler: handler, handlerManager: nil)
 	}
 	
-	@warn_unused_result
+	@warn_unused_result(message="Need to keep while using and release after use.")
 	internal func observe(notificationName:String, handler:(NamedNotification)->Void, handlerManager:NotificationHandlers?) -> HandlerID {
 		
 		let _handler = { (notification: NotificationProtocol) -> Void in
@@ -111,20 +111,20 @@ public class NotificationManager {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	@warn_unused_result
+	@warn_unused_result(message="Need to keep while using and release after use.")
 	public func observe<T:NotificationProtocol>(notification:T.Type, handler:(T)->Void) -> HandlerID {
 		
 		return self.observe(handler, handlerManager: nil)
 	}
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	@warn_unused_result
+	@warn_unused_result(message="Need to keep while using and release after use.")
 	public func observe<T:NotificationProtocol>(handler:(T)->Void) -> HandlerID {
 	
 		return self.observe(handler, handlerManager: nil)
 	}
 	
-	@warn_unused_result
+	@warn_unused_result(message="Need to keep while using and release after use.")
 	public func observe<T:NotificationProtocol>(handler:(T)->Void, handlerManager: NotificationHandlers?) -> HandlerID {
 
 		let _getNotification:(NotificationProtocol)->T = {
