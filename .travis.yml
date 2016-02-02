@@ -8,6 +8,11 @@ env:
     - LC_CTYPE=en_US.UTF-8
 git:
   submodules: false
+branches:
+  only:
+    - master
+cache: bundler
+bundler_args: --without production --deployment
 before_install:
   - git submodule update --init --recursive
 script:
