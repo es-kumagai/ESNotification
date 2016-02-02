@@ -19,7 +19,7 @@ before_install:
 script:
   - pod lib lint
   - set -o pipefail
-  - xcodebuild test -workspace ESNotification.xcworkspace -scheme ESNotification_OSX -configuration Debug | xcpretty -c
+  - xcodebuild test -workspace ESNotification.xcworkspace -scheme ESNotification_OSX -configuration Debug -sdk macosx | xcpretty -c
   - xcodebuild test -workspace ESNotification.xcworkspace -scheme ESNotification_iOS -configuration Debug -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 6s" | xcpretty -c
 notifications:
   email: false
