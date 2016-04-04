@@ -19,7 +19,7 @@ public struct HandlerID : Hashable {
 	
 	mutating func increment() {
 		
-		++self.value
+		self.value = value.successor()
 	}
 	
 	public var hashValue: Int {

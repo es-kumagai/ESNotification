@@ -69,7 +69,7 @@ public class NotificationManager {
 	init() {
 
 		self._rawNotificationObserver = _NotificationObserver(self)
-		self._notificationCenter.addObserver(self._rawNotificationObserver, selector: Selector("received:"), name: nil, object: nil)
+		self._notificationCenter.addObserver(self._rawNotificationObserver, selector: #selector(_NotificationObserver.received(_:)), name: nil, object: nil)
 	}
 	
 	deinit {
@@ -340,7 +340,12 @@ final class _NotificationObservingHandler {
 	
 	private static func _getNextHandlerID(handlerManager: NotificationHandlers?) -> HandlerID {
 		
-		return HandlerID(self._lastHandlerID++, handlerManager: handlerManager)
+		defer {
+		
+			_lastHandlerID = _lastHandlerID.successor()
+		}
+		
+		return HandlerID(_lastHandlerID, handlerManager: handlerManager)
 	}
 	
 	/// Invoke notification handler. If the `notification` type is not same type as self.target, do nothing.
