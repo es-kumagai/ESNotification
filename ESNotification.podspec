@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.ios.source_files  = "ESNotification_iOS/**/*.swift"
   s.osx.source_files  = "ESNotification_OSX/**/*.swift"
 
-  s.dependency	'Swim', '>= 1.4.1'
-  s.dependency	'ESThread', '>= 0.1.2'
+  s.dependency	'Swim', '~> 1.4.1'
+  s.dependency	'ESThread', '~> 0.1.2'
 
 end
