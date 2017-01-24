@@ -171,7 +171,6 @@
 		B17475E51B6CE0D500A86785 /* RawNotificationConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawNotificationConvertible.swift; sourceTree = "<group>"; };
 		B17475F41B6CE0EB00A86785 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B17475F51B6CE11200A86785 /* NotificationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
-		B17475F81B6CE16100A86785 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B1A6170A1C0BF0D30018D2BA /* NotificationHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHandlers.swift; sourceTree = "<group>"; };
 		B1A9DADA1C019BA800A895E5 /* NotificationObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationObservable.swift; sourceTree = "<group>"; };
 		B1BB8BF31C0DCD9C0071D415 /* HandlerID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandlerID.swift; sourceTree = "<group>"; };
@@ -280,7 +279,6 @@
 		B174755B1B6CD4A500A86785 = {
 			isa = PBXGroup;
 			children = (
-				B17475F81B6CE16100A86785 /* Podfile */,
 				B1E89A791B745F310062E12E /* ESNotification.podspec */,
 				B1E89A7A1B745F5F0062E12E /* LICENSE */,
 				B17475F41B6CE0EB00A86785 /* README.md */,
