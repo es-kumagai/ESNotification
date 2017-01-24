@@ -10,12 +10,12 @@ import Foundation
 
 internal enum NotificationBox {
 	
-	case NativeNotification(NotificationProtocol)
-	case RawNotification(NSNotification)
+	case nativeNotification(NotificationProtocol)
+	case rawNotification(Foundation.Notification)
 
 	func value() -> NotificationProtocol {
 		
-		guard case let .NativeNotification(value) = self else {
+		guard case let .nativeNotification(value) = self else {
 			
 			fatalError("Type mismatch (expected \(NotificationProtocol.self)).")
 		}
@@ -23,26 +23,26 @@ internal enum NotificationBox {
 		return value
 	}
 	
-	func value() -> NSNotification {
+	func value() -> Foundation.Notification {
 		
-		guard case let .RawNotification(value) = self else {
+		guard case let .rawNotification(value) = self else {
 			
-			fatalError("Type mismatch (expected \(NSNotification.self)).")
+			fatalError("Type mismatch (expected \(Foundation.Notification.self)).")
 		}
 		
 		return value
 	}
 }
 
-extension RangeReplaceableCollectionType where Generator.Element == NotificationBox {
+extension RangeReplaceableCollection where Iterator.Element == NotificationBox {
 	
-	mutating func append(notification:NotificationProtocol) {
+	mutating func append(_ notification: NotificationProtocol) {
 		
-		self.append(.NativeNotification(notification))
+		append(.nativeNotification(notification))
 	}
 	
-	mutating func append(notification:NSNotification) {
+	mutating func append(_ notification: Foundation.Notification) {
 		
-		self.append(.RawNotification(notification))
+		append(.rawNotification(notification))
 	}
 }

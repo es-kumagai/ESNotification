@@ -6,7 +6,7 @@
 //  Copyright © 平成27年 EasyStyle G.K. All rights reserved.
 //
 
-public func invokeOnProcessingQueueSyncIfNeeded(predicate:()->Void) -> Void {
+public func invokeOnProcessingQueueSyncIfNeeded(predicate: @escaping ()->Void) -> Void {
 	
 	// In iOS, always invoke asynchronously.
 	invokeOnProcessingQueue(predicate)

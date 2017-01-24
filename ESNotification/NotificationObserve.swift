@@ -11,8 +11,8 @@ import Foundation
 extension Notification {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	@warn_unused_result(message="Need to keep while using and release after use.")
-	public static func observe(handler:(Self)->Void) -> HandlerID {
+	
+	public static func observe(_ handler: @escaping (Self)->Void) -> HandlerID {
 		
 		return _notificationManager.observe(handler)
 	}
@@ -21,8 +21,8 @@ extension Notification {
 extension NamedNotification {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	@warn_unused_result(message="Need to keep while using and release after use.")
-	public static func observe(name:String, handler:(NamedNotification)->Void) -> HandlerID {
+	
+	public static func observe(_ name: String, handler: @escaping (NamedNotification) -> Void) -> HandlerID {
 		
 		return _notificationManager.observe(name, handler: handler)
 	}

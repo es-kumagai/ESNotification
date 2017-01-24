@@ -7,15 +7,13 @@
 //
 
 import Foundation
-import Swim
-import ESThread
 
 // MARK: - Manager
 
 /// Current notification manager.
 let _notificationManager = NotificationManager()
 
-public func == (lhs:HandlerID, rhs:HandlerID) -> Bool {
+public func == (lhs: HandlerID, rhs: HandlerID) -> Bool {
 
 	return lhs.value == rhs.value
 }
@@ -23,7 +21,7 @@ public func == (lhs:HandlerID, rhs:HandlerID) -> Bool {
 /// Manage native notifications.
 public class NotificationManager {
 	
-	public static var dammingNotifications:Bool {
+	public static var dammingNotifications: Bool {
 
 		get {
 			
@@ -36,40 +34,40 @@ public class NotificationManager {
 		}
 	}
 	
-	public var dammingNotifications:Bool = false {
+	public var dammingNotifications: Bool = false {
 		
 		didSet {
 			
-			if self.dammingNotifications {
+			if dammingNotifications {
 				
 				NSLog("Damming notifications.")
 			}
 			else {
 
 				NSLog("Release notification dam.")
-				self.invokeDammedNotifications()
+				invokeDammedNotifications()
 			}
 		}
 	}
 	
-	private var _notificationDam = [NotificationBox]()
+	fileprivate var _notificationDam = [NotificationBox]()
 		
 	/// Native notifications that the manager managed.
-	private var _notificationObservingHandlers = Array<_NotificationObservingHandler>()
+	fileprivate var _notificationObservingHandlers = Array<_NotificationObservingHandler>()
 	
 	/// Notification observer for Raw notifications.
-	private var _rawNotificationObserver:_NotificationObserver!
+	fileprivate var _rawNotificationObserver: _NotificationObserver!
 	
 	/// Current Raw Notification Center.
-	private var _notificationCenter:NSNotificationCenter {
+	fileprivate var _notificationCenter: NotificationCenter {
 		
-		return NSNotificationCenter.defaultCenter()
+		return NotificationCenter.default
 	}
 	
 	init() {
 
-		self._rawNotificationObserver = _NotificationObserver(self)
-		self._notificationCenter.addObserver(self._rawNotificationObserver, selector: #selector(_NotificationObserver.received(_:)), name: nil, object: nil)
+		_rawNotificationObserver = _NotificationObserver(self)
+		_notificationCenter.addObserver(self._rawNotificationObserver, selector: #selector(_NotificationObserver.received(_:)), name: nil, object: nil)
 	}
 	
 	deinit {
@@ -79,14 +77,14 @@ public class NotificationManager {
 	
 	/// Observe an named notification. When the named notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	@warn_unused_result(message="Need to keep while using and release after use.")
-	public func observe(notificationName:String, handler:(NamedNotification)->Void) -> HandlerID {
+	
+	public func observe(_ notificationName:String, handler:@escaping (NamedNotification)->Void) -> HandlerID {
 		
-		return self.observe(notificationName, handler: handler, handlerManager: nil)
+		return observe(notificationName, handler: handler, handlerManager: nil)
 	}
 	
-	@warn_unused_result(message="Need to keep while using and release after use.")
-	internal func observe(notificationName:String, handler:(NamedNotification)->Void, handlerManager:NotificationHandlers?) -> HandlerID {
+	
+	internal func observe(_ notificationName:String, handler:@escaping (NamedNotification)->Void, handlerManager:NotificationHandlers?) -> HandlerID {
 		
 		let _handler = { (notification: NotificationProtocol) -> Void in
 			
@@ -102,7 +100,7 @@ public class NotificationManager {
 			
 			let handler = _NotificationObservingHandler(NamedNotification.self, targetName: notificationName, handler: _handler, handlerManager: handlerManager)
 			
-			self._notificationObservingHandlers.append(handler)
+			_notificationObservingHandlers.append(handler)
 			try! handlerManager?._addHandlerID(handler.handlerID)
 			
 			return handler.handlerID
@@ -111,21 +109,21 @@ public class NotificationManager {
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	@warn_unused_result(message="Need to keep while using and release after use.")
-	public func observe<T:NotificationProtocol>(notification:T.Type, handler:(T)->Void) -> HandlerID {
+	
+	public func observe<T:NotificationProtocol>(_ notification: T.Type, handler: @escaping (T)->Void) -> HandlerID {
 		
-		return self.observe(handler, handlerManager: nil)
+		return observe(handler, handlerManager: nil)
 	}
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	@warn_unused_result(message="Need to keep while using and release after use.")
-	public func observe<T:NotificationProtocol>(handler:(T)->Void) -> HandlerID {
 	
-		return self.observe(handler, handlerManager: nil)
+	public func observe<T:NotificationProtocol>(_ handler: @escaping (T)->Void) -> HandlerID {
+	
+		return observe(handler, handlerManager: nil)
 	}
 	
-	@warn_unused_result(message="Need to keep while using and release after use.")
-	public func observe<T:NotificationProtocol>(handler:(T)->Void, handlerManager: NotificationHandlers?) -> HandlerID {
+	
+	public func observe<T:NotificationProtocol>(_ handler: @escaping (T)->Void, handlerManager: NotificationHandlers?) -> HandlerID {
 
 		let _getNotification:(NotificationProtocol)->T = {
 			
@@ -139,7 +137,7 @@ public class NotificationManager {
 			}
 		}
 		
-		let _handler:(NotificationProtocol) -> Void = {
+		let _handler: (NotificationProtocol) -> Void = {
 			
 			handler(_getNotification($0))
 		}
@@ -156,43 +154,46 @@ public class NotificationManager {
 	}
 
 	/// Release all observing handler for the `target`.
-	public static func releaseObservingHandler(handlerIDs:HandlerID...) {
+	public static func releaseObservingHandler(_ handlerIDs: HandlerID...) {
 	
 		_notificationManager.releaseObservingHandlers(Set(handlerIDs))
 	}
 	
 	/// Release all observing handler for the `target`.
-	public static func releaseObservingHandlers(handlerIDs:Set<HandlerID>) {
+	public static func releaseObservingHandlers(_ handlerIDs: Set<HandlerID>) {
 		
 		_notificationManager.releaseObservingHandlers(Set(handlerIDs))
 	}
 	
 	/// Release all observing handler for the `target`.
-	public func releaseObservingHandlers(handlerIDs:Set<HandlerID>) {
+	public func releaseObservingHandlers(_ handlerIDs: Set<HandlerID>) {
 
 		// Invoke `release` synchronously.
 		invokeOnProcessingQueueSynchronously {
 
-			self._releaseObservingHandlers(handlerIDs)
+			_releaseObservingHandlers(handlerIDs)
 		}
 	}
 
 	/// Release all observing handler for the `target`.
-	func _releaseObservingHandlers(targetHandlerIDs: Set<HandlerID>) {
+	func _releaseObservingHandlers(_ targetHandlerIDs: Set<HandlerID>) {
 
-		let indexOfObservingHandlersByTargetHandlerID: (HandlerID) -> Int? = { targetHandlerID in
+		func indexOfObservingHandlersByTargetHandlerID(targetHandlerID: HandlerID) -> Int? {
 			
-			self._notificationObservingHandlers.indexOf { observingHandler in targetHandlerID.containsInHandler(observingHandler) }
+			return _notificationObservingHandlers.index { observingHandler in
+				
+				targetHandlerID.containsInHandler(observingHandler)
+			}
 		}
 		
-		let targetHandlerIndexes: () -> [Int] = {
+		var targetHandlerIndexes: [Int] {
 
-			targetHandlerIDs.flatMap(indexOfObservingHandlersByTargetHandlerID)
+			return targetHandlerIDs.flatMap(indexOfObservingHandlersByTargetHandlerID)
 		}
 
-		for index in targetHandlerIndexes().sort(>) {
+		for index in targetHandlerIndexes.sorted(by: >) {
 			
-			self._notificationObservingHandlers.removeAtIndex(index)
+			_notificationObservingHandlers.remove(at: index)
 		}
 	}
 }
@@ -200,11 +201,11 @@ public class NotificationManager {
 extension NotificationManager {
 
 	/// The method is called when the observer received an notification.
-	func received(notification:NotificationProtocol) {
+	func received(_ notification: NotificationProtocol) {
 
 		guard !NotificationManager.dammingNotifications else {
 			
-			self.dammNotification(notification)
+			dammNotification(notification)
 			return
 		}
 		
@@ -215,11 +216,11 @@ extension NotificationManager {
 	}
 
 	/// The method is called when the observer received an notification.
-	func received(rawNotification:NSNotification) {
+	func received(_ rawNotification: Foundation.Notification) {
 		
 		guard !NotificationManager.dammingNotifications else {
 			
-			self.dammNotification(rawNotification)
+			dammNotification(rawNotification)
 			return
 		}
 		
@@ -229,40 +230,40 @@ extension NotificationManager {
 		}
 	}
 	
-	private func _received(notification:NotificationProtocol) {
+	fileprivate func _received(_ notification: NotificationProtocol) {
 		
-		self._notificationObservingHandlers.forEach {
+		_notificationObservingHandlers.forEach {
 			
 			$0.invoke(notification)
 		}
 	}
 
-	private func _received(rawNotification:NSNotification) {
+	fileprivate func _received(_ rawNotification: Foundation.Notification) {
 		
-		let targetNotificationNames = self._notificationObservingHandlers.flatMap { $0.targetName }
+		let targetNotificationNames = _notificationObservingHandlers.flatMap { $0.targetName }
 		
-		guard targetNotificationNames.contains(rawNotification.name) else {
+		guard targetNotificationNames.contains(rawNotification.name.rawValue) else {
 		
 			// drop the notification which will not be handled.
 			return
 		}
 		
-		self._received(NamedNotification(rawNotification: rawNotification))
+		_received(NamedNotification(rawNotification: rawNotification))
 	}
 
-	private func _received(dammedNotification:NotificationBox) {
+	fileprivate func _received(_ dammedNotification: NotificationBox) {
 		
 		switch dammedNotification {
 			
-		case .NativeNotification(let notification):
-			self._received(notification)
+		case .nativeNotification(let notification):
+			_received(notification)
 			
-		case .RawNotification(let notification):
-			self._received(notification)
+		case .rawNotification(let notification):
+			_received(notification)
 		}
 	}
 	
-	func dammNotification(notification:NotificationProtocol) {
+	func dammNotification(_ notification: NotificationProtocol) {
 		
 		invokeOnProcessingQueue {
 			
@@ -270,7 +271,7 @@ extension NotificationManager {
 		}
 	}
 	
-	func dammNotification(rawNotification:NSNotification) {
+	func dammNotification(_ rawNotification: Foundation.Notification) {
 		
 		invokeOnProcessingQueue {
 			
@@ -278,14 +279,14 @@ extension NotificationManager {
 		}
 	}
 	
-	func _dammNotification(notification:NotificationProtocol) {
+	func _dammNotification(_ notification: NotificationProtocol) {
 	
-		self._notificationDam.append(notification)
+		_notificationDam.append(notification as! NotificationBox)
 	}
 	
-	func _dammNotification(rawNotification:NSNotification) {
+	func _dammNotification(_ rawNotification: Foundation.Notification) {
 		
-		self._notificationDam.append(rawNotification)
+		_notificationDam.append(rawNotification)
 	}
 	
 	func invokeDammedNotifications() {
@@ -310,7 +311,7 @@ func == (lhs: _NotificationObservingHandler, rhs: _NotificationObservingHandler)
 // MARK: - Internal Container
 
 /// Check if the `value` Type means same notification as `patternType`.
-func ~= (pattern:NotificationProtocol.Type, value:NotificationProtocol.Type) -> Bool {
+func ~= (pattern: NotificationProtocol.Type, value: NotificationProtocol.Type) -> Bool {
 	
 	let id1 = ObjectIdentifier(pattern)
 	let id2 = ObjectIdentifier(value)
@@ -323,14 +324,14 @@ final class _NotificationObservingHandler {
 
 	typealias NotificationHandler = (NotificationProtocol) -> Void
 
-	private static var _lastHandlerID = Int.min
+	fileprivate static var _lastHandlerID = Int.min
 	
-	private(set) var handlerID:HandlerID
-	private(set) var target:NotificationProtocol.Type
-	private(set) var targetName:String?
-	private(set) var handler:NotificationHandler
+	fileprivate(set) var handlerID: HandlerID
+	fileprivate(set) var target: NotificationProtocol.Type
+	fileprivate(set) var targetName: String?
+	fileprivate(set) var handler: NotificationHandler
 	
-	init(_ target:NotificationProtocol.Type, targetName:String?, handler:NotificationHandler, handlerManager: NotificationHandlers?) {
+	init(_ target: NotificationProtocol.Type, targetName: String?, handler: @escaping NotificationHandler, handlerManager: NotificationHandlers?) {
 		
 		self.handlerID = _NotificationObservingHandler._getNextHandlerID(handlerManager)
 		self.target = target
@@ -338,23 +339,23 @@ final class _NotificationObservingHandler {
 		self.handler = handler
 	}
 	
-	private static func _getNextHandlerID(handlerManager: NotificationHandlers?) -> HandlerID {
+	fileprivate static func _getNextHandlerID(_ handlerManager: NotificationHandlers?) -> HandlerID {
 		
 		defer {
 		
-			_lastHandlerID = _lastHandlerID.successor()
+			_lastHandlerID = (_lastHandlerID + 1)
 		}
 		
 		return HandlerID(_lastHandlerID, handlerManager: handlerManager)
 	}
 	
 	/// Invoke notification handler. If the `notification` type is not same type as self.target, do nothing.
-	func invoke(notification:NotificationProtocol) {
+	func invoke(_ notification: NotificationProtocol) {
 
-		switch self.target {
+		switch target {
 			
-		case notification.dynamicType, AnyNotification.self:
-			self._invokeHandlerOnMainThread(notification)
+		case type(of: notification), AnyNotification.self:
+			_invokeHandlerOnMainThread(notification)
 			
 		default:
 			break
@@ -362,11 +363,15 @@ final class _NotificationObservingHandler {
 	}
 
 	/// Invoke notification handler on main thread asynchronously.
-	func _invokeHandlerOnMainThread(notification:NotificationProtocol) {
+	func _invokeHandlerOnMainThread(_ notification: NotificationProtocol) {
 		
-		invokeAsyncOnMainQueue {
+		switch Thread.isMainThread {
 			
-			self.handler(notification)
+		case true:
+			handler(notification)
+
+		case false:
+			DispatchQueue.main.sync { handler(notification) }
 		}
 	}
 }
@@ -376,7 +381,7 @@ final class _NotificationObservingHandler {
 /// Observe raw notifications.
 final class _NotificationObserver : NSObject {
 
-	private unowned var _manager:NotificationManager
+	fileprivate unowned var _manager:NotificationManager
 	
 	init(_ manager:NotificationManager) {
 		
@@ -386,15 +391,15 @@ final class _NotificationObserver : NSObject {
 	}
 	
 	/// The method is called when the observer received an notification.
-	func received(rawNotification:NSNotification) {
+	func received(_ rawNotification: Foundation.Notification) {
 	
 		if let notification = rawNotification.toESNativeNotification() {
 
-			self._manager.received(notification)
+			_manager.received(notification)
 		}
 		else {
 
-			self._manager.received(rawNotification)
+			_manager.received(rawNotification)
 		}
 	}
 }

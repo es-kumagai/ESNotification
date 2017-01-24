@@ -4,15 +4,11 @@ use_frameworks!
 
 def pods
 	
-	pod 'Swim'
-	pod 'ESThread'
-	
 end
 
 def pods_test
 	
 	pods
-	pod 'ESTestKit'
 	
 end
 

@@ -8,28 +8,28 @@
 
 import Foundation
 
-extension NSNotificationCenter {
+extension NotificationCenter {
 	
-	public static func ESNotificationNameOf(notification: NotificationProtocol.Type) -> String {
+	public static func ESNotificationNameOf(_ notification: NotificationProtocol.Type) -> String {
 		
 		return notification.notificationIdentifier
 	}
 	
-	public func addObserver(observer: AnyObject, selector aSelector: Selector, ESNotification notification: NotificationProtocol.Type, object: AnyObject?) {
+	public func addObserver(_ observer: AnyObject, selector aSelector: Selector, ESNotification notification: NotificationProtocol.Type, object: AnyObject?) {
 
-		let name = NSNotificationCenter.ESNotificationNameOf(notification)
+		let name = NotificationCenter.ESNotificationNameOf(notification)
 		
-		self.addObserver(observer, selector: aSelector, name: name, object: object)
+		self.addObserver(observer, selector: aSelector, name: NSNotification.Name(rawValue: name), object: object)
 	}
 	
-	public func removeObserver(observer: AnyObject, ESNotification notification: NotificationProtocol.Type, object: AnyObject?) {
+	public func removeObserver(_ observer: AnyObject, ESNotification notification: NotificationProtocol.Type, object: AnyObject?) {
 		
-		let name = NSNotificationCenter.ESNotificationNameOf(notification)
+		let name = NotificationCenter.ESNotificationNameOf(notification)
 		
-		self.removeObserver(observer, name: name, object: object)
+		self.removeObserver(observer, name: NSNotification.Name(rawValue: name), object: object)
 	}
 	
-	public func postESNotification(notification:Postable) {
+	public func postESNotification(_ notification: Postable) {
 		
 		notification.post()
 	}

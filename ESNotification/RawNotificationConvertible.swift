@@ -11,12 +11,12 @@ import Foundation
 public protocol RawNotificationConvertible {
 	
 	/// Initialize with a Raw Notification.
-	init(rawNotification:NSNotification)
+	init(rawNotification: Foundation.Notification)
 }
 
 public protocol RawNotificationType {
 	
 	/// Get a Raw Notification. When you try posting the notification, the rawNotification will post.
-	var rawNotification:NSNotification { get }
+	var rawNotification: Foundation.Notification { get }
 }
 

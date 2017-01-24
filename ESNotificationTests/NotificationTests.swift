@@ -8,7 +8,6 @@
 
 import Foundation
 import XCTest
-import ESTestKit
 import ESNotification
 
 class CustomNotification : ESNotification.Notification {
@@ -32,50 +31,51 @@ class NotificationTests: XCTestCase {
 		let customNotificationName = CustomNotification.self.notificationIdentifier
 		let namedNotificationName = NamedNotification("TestNamedNotification").notificationIdentifier
 		
-		expected().equal(customNotificationName, "jp.ez-style.Notification.CustomNotification")
-		expected("NamedNotification も nameOf 関数では名前ではなく固有の識別子を取得します。").equal(namedNotificationName, "jp.ez-style.Notification.NamedNotification")
+		XCTAssertEqual(customNotificationName, "jp.ez-net.notification.CustomNotification")
+		XCTAssertEqual(namedNotificationName, "jp.ez-net.notification.NamedNotification", "NamedNotification も nameOf 関数では名前ではなく固有の識別子を取得します。")
 	}
 	
     func testRawNotification() {
 
-		let object:AnyObject? = self
-		let userInfo:[NSObject:AnyObject]? = ["k1":10, "k2":20]
+		let object: AnyObject? = self
+		let userInfo: [AnyHashable: Any]? = ["k1":10, "k2":20]
 		
 		let notification = NamedNotification("ESTestNotification", object: object, userInfo: userInfo)
 		let rawNotification = notification.rawNotification
 		
-		expected().equal(rawNotification.name, "ESTestNotification")
-		expected().equal(notification.name, "ESTestNotification")
+		XCTAssertEqual(rawNotification.name.rawValue, "ESTestNotification")
+		XCTAssertEqual(notification.name, "ESTestNotification")
 		
-		if let objectOfRaw:AnyObject = rawNotification.object, let objectOfNative:AnyObject = notification.object {
+		if let objectOfRaw = rawNotification.object, let objectOfNative = notification.object {
 
-			expected().success { objectOfRaw === objectOfNative }
+			XCTAssertTrue((objectOfRaw as AnyObject) === (objectOfNative as AnyObject))
 		}
 		else {
-			
-			expected().success { rawNotification.object == nil && notification.object == nil }
+
+			XCTAssertTrue(rawNotification.object == nil && notification.object == nil)
 		}
 		
 		if let userInfoOfRaw = rawNotification.userInfo, let userInfoOfNative = notification.userInfo {
 			
-			expected().equal(userInfoOfRaw.count, 2)
-			expected().equal(userInfoOfRaw.count, userInfoOfNative.count)
+			XCTAssertEqual(userInfoOfRaw.count, 2)
+			XCTAssertEqual(userInfoOfRaw.count, userInfoOfNative.count)
 			
 			for (key, valueOfRaw) in userInfoOfRaw {
 				
-				if let valueOfNative:AnyObject = userInfoOfNative[key] {
+				if let valueOfNative = userInfoOfNative[key] {
 
-					expected().success { valueOfNative === valueOfRaw }
+					XCTAssertTrue(type(of: valueOfNative) == type(of: valueOfRaw))
+					XCTAssertEqual(String(describing: valueOfNative), String(describing: valueOfRaw))
 				}
 				else {
 					
-					failed("Key mismatch '\(key)'.") as Void
+					XCTFail("Key mismatch '\(key)'.")
 				}
 			}
 		}
 		else {
 			
-			expected().success { rawNotification.userInfo == nil && notification.userInfo == nil }
+			XCTAssertTrue(rawNotification.userInfo == nil && notification.userInfo == nil)
 		}
 	}
 }

@@ -18,14 +18,14 @@ extension Postable {
 	/// Post the `notification`.
 	public func post() {
 		
-		let notificationCenter = NSNotificationCenter.defaultCenter()
-		let rawNotification = self.makeRawNotification()
+		let notificationCenter = NotificationCenter.default
+		let rawNotification = makeRawNotification()
 		
-		notificationCenter.postNotification(rawNotification)
+		notificationCenter.post(rawNotification)
 	}
 	
 	/// Create an NSNotification from the `notification`.
-	public func makeRawNotification() -> NSNotification {
+	public func makeRawNotification() -> Foundation.Notification {
 		
 		if let notification = self as? RawNotificationType {
 			
@@ -33,10 +33,7 @@ extension Postable {
 		}
 		else {
 			
-			let name = self.dynamicType.notificationIdentifier
-			let object = self
-			
-			return NSNotification(name: name, object: object, userInfo:nil)
+			return Foundation.Notification(name: rawNotificationName, object: self, userInfo: nil)
 		}
 	}
 }

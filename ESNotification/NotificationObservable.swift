@@ -15,38 +15,38 @@ public protocol NotificationObservable : AnyObject {
 extension NotificationObservable {
 	
 	/// Observe an named notification. When the named notification was post, the `handler` called in main thread.
-	public func observeNotificationNamed(name:String, handler:(NamedNotification)->Void) -> HandlerID {
+	public func observeNotificationNamed(_ name: String, handler: @escaping (NamedNotification) -> Void) -> HandlerID {
 
-		return _notificationManager.observe(name, handler: handler, handlerManager: self.notificationHandlers)
+		return _notificationManager.observe(name, handler: handler, handlerManager: notificationHandlers)
 	}
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
-	public func observeNotification<T:NotificationProtocol>(handler:(T)->Void) -> HandlerID {
+	public func observeNotification<T:NotificationProtocol>(_ handler: @escaping (T) -> Void) -> HandlerID {
 		
-		return _notificationManager.observe(handler, handlerManager: self.notificationHandlers)
+		return _notificationManager.observe(handler, handlerManager: notificationHandlers)
 	}
 	
 	/// Observe an Native notification. When the native notification was post, the `handler` called in main thread.
 	/// The argument `notification` is used to help type inference.
-	public func observeNotification<T:NotificationProtocol>(_ :T.Type, handler:(T)->Void) -> HandlerID {
+	public func observeNotification<T:NotificationProtocol>(_ : T.Type, handler: @escaping (T)->Void) -> HandlerID {
 		
-		return self.observeNotification(handler)
+		return observeNotification(handler)
 	}
 	
 	/// Release observing handler.
-	public func releaseObservingNotification(handlerID: HandlerID) throws {
+	public func releaseObservingNotification(_ handlerID: HandlerID) throws {
 		
-		try self.releaseObservingNotifications([handlerID])
+		try releaseObservingNotifications([handlerID])
 	}
 	
-	public func releaseObservingNotifications(handlerIDs: [HandlerID]) throws {
+	public func releaseObservingNotifications(_ handlerIDs: [HandlerID]) throws {
 		
-		try self.notificationHandlers.releaseHandlers(Set(handlerIDs))
+		try notificationHandlers.releaseHandlers(Set(handlerIDs))
 	}
 	
 	/// Release all observing handler for `self`.
 	public func releaseAllObservingNotifications() {
 		
-		self.notificationHandlers.releaseAllHandlers()
+		notificationHandlers.releaseAllHandlers()
 	}
 }

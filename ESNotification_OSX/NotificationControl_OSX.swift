@@ -8,7 +8,7 @@
 
 import Cocoa
 
-public func invokeOnProcessingQueueSyncIfNeeded(predicate:()->Void) -> Void {
+public func invokeOnProcessingQueueSyncIfNeeded(_ predicate:()->Void) -> Void {
 
 	// In OSX, always invoke synchronously.
 	// Because when modal window shown from menu in OSX, need to invoke synchronously.

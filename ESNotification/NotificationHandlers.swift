@@ -6,20 +6,18 @@
 //  Copyright © 平成27年 EasyStyle G.K. All rights reserved.
 //
 
-import Swim
-
 /// A class for manage notification handler **IDs** which are observed by `NotificationObserver`.
 public final class NotificationHandlers {
 	
-	enum Error : ErrorType {
+	enum Error : Swift.Error {
 		
-		case HandlerIsNotFound(handlerID: HandlerID)
-		case HandleIDIsAlreadyExists(handlerID: HandlerID)
+		case handlerIsNotFound(handlerID: HandlerID)
+		case handleIDIsAlreadyExists(handlerID: HandlerID)
 	}
 
 	typealias _HandlerIDs = Set<HandlerID>
 	
-	private var _handlerIDs: _HandlerIDs
+	fileprivate var _handlerIDs: _HandlerIDs
 
 	public init() {
 		
@@ -34,40 +32,40 @@ public final class NotificationHandlers {
 
 extension NotificationHandlers {
 	
-	internal func _guardHandlerContaining(handlerIDs: Set<HandlerID>) throws {
+	internal func _guardHandlerContaining(_ handlerIDs: Set<HandlerID>) throws {
 		
 		for handlerID in handlerIDs {
 			
 			if !self._handlerIDs.contains(handlerID) {
 				
-				throw Error.HandlerIsNotFound(handlerID: handlerID)
+				throw Error.handlerIsNotFound(handlerID: handlerID)
 			}
 		}
 	}
 	
-	internal func _addHandlerID(handlerID:HandlerID) throws {
+	internal func _addHandlerID(_ handlerID:HandlerID) throws {
 	
 		guard !self._handlerIDs.contains(handlerID) else {
 			
-			throw Error.HandleIDIsAlreadyExists(handlerID: handlerID)
+			throw Error.handleIDIsAlreadyExists(handlerID: handlerID)
 		}
 		
 		self._handlerIDs.insert(handlerID)
 	}
 	
-	internal func releaseHandler(handlerIDs: HandlerID...) throws {
+	internal func releaseHandler(_ handlerIDs: HandlerID...) throws {
 
 		try self.releaseHandlers(Set(handlerIDs))
 	}
 	
-	internal func releaseHandlers(handlerIDs: Set<HandlerID>) throws {
+	internal func releaseHandlers(_ handlerIDs: Set<HandlerID>) throws {
 
 		try invokeOnProcessingQueueSynchronously {
 
 			try self._guardHandlerContaining(handlerIDs)
 			
 			_notificationManager._releaseObservingHandlers(handlerIDs)
-			self._handlerIDs.subtractInPlace(handlerIDs)
+			self._handlerIDs.subtract(handlerIDs)
 		}
 	}
 	

@@ -8,10 +8,10 @@
 
 public struct HandlerID : Hashable {
 	
-	internal var value:Int
+	internal var value: Int
 	internal weak var handlerManager: NotificationHandlers?
 	
-	init(_ value:Int, handlerManager: NotificationHandlers?) {
+	init(_ value: Int, handlerManager: NotificationHandlers?) {
 		
 		self.value = value
 		self.handlerManager = handlerManager
@@ -19,12 +19,12 @@ public struct HandlerID : Hashable {
 	
 	mutating func increment() {
 		
-		self.value = value.successor()
+		value += 1
 	}
 	
 	public var hashValue: Int {
 		
-		return Int(self.value)
+		return Int(value)
 	}
 	
 	/// Release observing handler by HandlerID
@@ -40,7 +40,7 @@ public struct HandlerID : Hashable {
 		}
 	}
 	
-	func containsInHandler(handler: _NotificationObservingHandler) -> Bool {
+	func containsInHandler(_ handler: _NotificationObservingHandler) -> Bool {
 		
 		return handler.handlerID == self
 	}
