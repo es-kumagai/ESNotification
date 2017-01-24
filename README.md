@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.org/EZ-NET/ESNotification.svg?branch=master)](https://travis-ci.org/EZ-NET/ESNotification)
 
-A type-safe notification management system for iOS/OSX written in Swift 2.
+A type-safe notification management system for iOS/OSX written in Swift 3.
 
 It is a swift module that powerfully notification management system using type-safe notification types. Notifications using this system are compatible with NSNotificationCenter.
 
-This module written in Swift 2.0 and the module supports Objective-C.
+This module written in Swift 3.0 and the module supports Objective-C.
 
 # Installation
 
