@@ -21,12 +21,12 @@ public final class NotificationHandlers {
 
 	public init() {
 		
-		self._handlerIDs = []
+		_handlerIDs = []
 	}
 	
 	deinit {
 		
-		self.releaseAllHandlers()
+		releaseAllHandlers()
 	}
 }
 
@@ -36,7 +36,7 @@ extension NotificationHandlers {
 		
 		for handlerID in handlerIDs {
 			
-			if !self._handlerIDs.contains(handlerID) {
+			if !_handlerIDs.contains(handlerID) {
 				
 				throw Error.handlerIsNotFound(handlerID: handlerID)
 			}
@@ -45,27 +45,27 @@ extension NotificationHandlers {
 	
 	internal func _addHandlerID(_ handlerID:HandlerID) throws {
 	
-		guard !self._handlerIDs.contains(handlerID) else {
+		guard !_handlerIDs.contains(handlerID) else {
 			
 			throw Error.handleIDIsAlreadyExists(handlerID: handlerID)
 		}
 		
-		self._handlerIDs.insert(handlerID)
+		_handlerIDs.insert(handlerID)
 	}
 	
 	internal func releaseHandler(_ handlerIDs: HandlerID...) throws {
 
-		try self.releaseHandlers(Set(handlerIDs))
+		try releaseHandlers(Set(handlerIDs))
 	}
 	
 	internal func releaseHandlers(_ handlerIDs: Set<HandlerID>) throws {
 
 		try invokeOnProcessingQueueSynchronously {
 
-			try self._guardHandlerContaining(handlerIDs)
+			try _guardHandlerContaining(handlerIDs)
 			
 			_notificationManager._releaseObservingHandlers(handlerIDs)
-			self._handlerIDs.subtract(handlerIDs)
+			_handlerIDs.subtract(handlerIDs)
 		}
 	}
 	
@@ -73,8 +73,8 @@ extension NotificationHandlers {
 		
 		invokeOnProcessingQueueSynchronously {
 		
-			_notificationManager._releaseObservingHandlers(self._handlerIDs)
-			self._handlerIDs.removeAll()
+			_notificationManager._releaseObservingHandlers(_handlerIDs)
+			_handlerIDs.removeAll()
 		}
 	}
 }
